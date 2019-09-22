@@ -1,0 +1,21 @@
+@import "../css/variables.scss";
+
+#login-buttons,
+#login-dropdown-list {
+  background-color: transparent;
+  color: $textColor;
+}
+
+#login-dropdown-list {
+  background-color: white;
+  color: $textColor;
+
+  & #login-buttons-password {
+    background-color: red;
+
+    &:hover {
+      opacity: 0.7;
+      color: magenta;
+    }
+  }
+}

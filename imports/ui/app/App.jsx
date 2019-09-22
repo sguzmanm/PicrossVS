@@ -1,13 +1,23 @@
 import React from "react";
-import Hello from "../Hello.jsx";
-import Info from "../Info.jsx";
+import { Meteor } from "meteor/meteor";
+import { withTracker } from "meteor/react-meteor-data";
 
-const App = () => (
-  <div>
-    <h1>Welcome to Meteor!</h1>
-    <Hello />
-    <Info />
-  </div>
-);
+import AccountsUIWrapper from "../components/auth/AccountUIWrapper.jsx";
+import Router from "./Router.jsx";
+import "./App.scss";
 
-export default App;
+const App = props => {
+  return (
+    <div>
+      <AccountsUIWrapper />
+      <Router currentUser={props.currentUser}></Router>
+    </div>
+  );
+};
+
+export default AppContainer = withTracker(() => {
+  return {
+    currentUser: Meteor.user(),
+    userId: Meteor.userId()
+  };
+})(App);

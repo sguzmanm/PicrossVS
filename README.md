@@ -66,3 +66,9 @@ _-- NEED TO CHECK AFTER DEV_
 ## License
 
 This project is public under the MIT license, found [here](https://github.com/sguzmanm/PicrossVS/blob/master/LICENSE)
+
+# Others
+
+## Meteor packages
+
+- fourseven:scss
