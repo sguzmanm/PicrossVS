@@ -1,0 +1,55 @@
+@import "../../../css/variables.scss";
+
+.game-detail {
+  text-align: left;
+  width: 100%;
+  height: 80vh;
+  border: 0.1rem solid $borderColor;
+  padding: 1rem;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__title,
+  &__text {
+    font-size: 1.5rem;
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__text {
+    &--color0 {
+      color: $player1Color;
+    }
+
+    &--color1 {
+      color: $player2Color;
+    }
+
+    &--color2 {
+      color: $player3Color;
+    }
+
+    &--color3 {
+      color: $player4Color;
+    }
+  }
+
+  &__button {
+    background-color: transparent;
+    color: $textColor;
+    border-color: $borderColor;
+    align-self: center;
+    font-size: 2rem;
+    padding: 1rem 3rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $textColor;
+      color: white;
+    }
+  }
+}

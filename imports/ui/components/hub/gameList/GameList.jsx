@@ -1,7 +1,7 @@
 import React from "react";
 import "./GameList.scss";
 
-import GamePreview from "./gamePreview/GamePreview.jsx";
+import GamePreview from "../gamePreview/GamePreview.jsx";
 
 const GameList = props => {
   let games = null;
