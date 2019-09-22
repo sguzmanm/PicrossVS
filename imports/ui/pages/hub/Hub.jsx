@@ -1,8 +1,15 @@
 import React from "react";
+import "./Hub.scss";
+
+import GameDetail from "../../components/hub/gameDetail/GameDetail.jsx";
+import GameList from "../../components/hub/gameList/GameList.jsx";
 
 const Hub = () => {
   return (
-    <h1>Here should be the hub with all the created boards expecting games</h1>
+    <div className='hub'>
+      <GameList />
+      <GameDetail />
+    </div>
   );
 };
 

@@ -1,0 +1,62 @@
+[
+  {
+    "state": 0,
+    "numWaitedUsers": 2,
+    "players": [
+      {
+        "user": {
+          "username": "test1"
+        },
+        "board": [],
+        "curScore": 0
+      }
+    ]
+  },
+  {
+    "state": 0,
+    "numWaitedUsers": 3,
+    "players": [
+      {
+        "user": {
+          "username": "test1"
+        },
+        "board": [],
+        "curScore": 0
+      },
+      {
+        "user": {
+          "username": "test2"
+        },
+        "board": [],
+        "curScore": 0
+      }
+    ]
+  },
+  {
+    "state": 0,
+    "numWaitedUsers": 4,
+    "players": [
+      {
+        "user": {
+          "username": "test1"
+        },
+        "board": [],
+        "curScore": 0
+      },
+      {
+        "user": {
+          "username": "test2"
+        },
+        "board": [],
+        "curScore": 0
+      },
+      {
+        "user": {
+          "username": "test3"
+        },
+        "board": [],
+        "curScore": 0
+      }
+    ]
+  }
+]

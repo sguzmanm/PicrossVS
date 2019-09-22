@@ -25,6 +25,7 @@ Boards:{
 Game: {
     state:0/1/2 (WaitingForPlayers,Active,Finished),
     players:[]={user,boards:Board, curScore},
-    numWaitedUsers (Num of users the game should wait for)
+    numWaitedUsers (Num of users the game should wait for),
+    board: Base board for the game
 }
 ```
