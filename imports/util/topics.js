@@ -1,3 +1,3 @@
 
 export const linksTopic='links';
-export const activeGamesTopic='activeGames';
+export const activeGamesTopic='games';

@@ -8,7 +8,7 @@ export const Games = new Mongo.Collection('games');
 if (Meteor.isServer) {
     // This code only runs on the server
     Meteor.publish(activeGamesTopic, function linksPublication() {
-      return Games.find({ state: 0 });
+      return Games.find({state:0});
     });
   }
 

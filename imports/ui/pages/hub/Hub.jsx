@@ -1,16 +1,10 @@
 import React from "react";
 import "./Hub.scss";
 
-import GameDetail from "../../components/hub/gameDetail/GameDetail.jsx";
-import GameList from "../../components/hub/gameList/GameList.jsx";
+import HubComponent from "../../components/hub/hub/Hub.jsx";
 
 const Hub = () => {
-  return (
-    <div className='hub'>
-      <GameList />
-      <GameDetail />
-    </div>
-  );
+  return <HubComponent />;
 };
 
 export default Hub;
