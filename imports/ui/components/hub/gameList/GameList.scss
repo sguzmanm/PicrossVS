@@ -1,6 +1,5 @@
 .game-list {
-  &__item {
-    color: red;
-    border: 1px solid blue;
-  }
+  display: grid;
+  grid-template-columns: repeat(8, 6rem);
+  grid-gap: 1rem;
 }

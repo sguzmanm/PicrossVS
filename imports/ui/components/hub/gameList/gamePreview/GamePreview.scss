@@ -1,0 +1,46 @@
+@import "../../../../css/variables.scss";
+
+.game-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+  &__label {
+    text-align: center;
+  }
+
+  &__grid {
+    display: grid;
+    width: 100%;
+    border: 0.1rem solid $borderColor;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(150%);
+      border-width: 0.2rem;
+    }
+
+    &--selected {
+      filter: brightness(150%);
+      border-width: 0.2rem;
+    }
+  }
+
+  &__item {
+    &--color0 {
+      background-color: $player1Color;
+    }
+
+    &--color1 {
+      background-color: $player2Color;
+    }
+
+    &--color2 {
+      background-color: $player3Color;
+    }
+
+    &--color3 {
+      background-color: $player4Color;
+    }
+  }
+}

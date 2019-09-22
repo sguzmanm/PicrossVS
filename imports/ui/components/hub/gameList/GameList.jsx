@@ -1,20 +1,24 @@
 import React from "react";
+import "./GameList.scss";
+
+import GamePreview from "./gamePreview/GamePreview.jsx";
 
 const GameList = props => {
-  console.log(props.activeGames);
   let games = null;
   if (props.activeGames) {
     games = props.activeGames.map(el => {
       return (
-        <div className='game-list__item'>
-          <p>{el.numWaitedUsers}</p>
-        </div>
+        <GamePreview
+          key={el._id}
+          game={el}
+          currentGameId={props.currentGameId}
+          onClick={() => props.changeCurrentGameId(el._id)}
+        />
       );
     });
   }
 
-  console.log(games);
-  return games;
+  return <div className='game-list'>{games}</div>;
 };
 
 export default GameList;

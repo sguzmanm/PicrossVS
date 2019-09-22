@@ -13,20 +13,22 @@ import { Games } from "../../../../api/games";
 
 const Hub = props => {
   // React state
-  const [currentGame, setCurrentGame] = useState(-1);
+  const [currentGameId, setCurrentGameId] = useState(-1);
+  let currentGame = props.activeGames.find(el => el._id === currentGameId);
 
-  console.log("From meteor ", props.activeGames);
   return (
     <div className='hub'>
       <GameList
         activeGames={props.activeGames}
-        changeCurrentGame={index => setCurrentGame(index)}
+        currentGameId={currentGame ? currentGame._id : -1}
+        changeCurrentGameId={setCurrentGameId}
       />
-      <GameDetail currentGame={props.activeGames[currentGame]} />
+      <GameDetail currentGame={currentGame} />
     </div>
   );
 };
 
+// Export with props from backend
 export default HubContainer = withTracker(() => {
   Meteor.subscribe(activeGamesTopic);
   return {
