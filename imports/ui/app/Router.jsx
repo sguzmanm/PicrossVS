@@ -28,6 +28,9 @@ function AppRouter(props) {
           path='/game'
           render={() => (user ? <Game /> : <Redirect to='/' />)}
         />
+        <Route
+          render={() => (user ? <Redirect to='/hub' /> : <Redirect to='/' />)}
+        />
       </Switch>
     </Router>
   );
