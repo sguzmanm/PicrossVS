@@ -1,5 +1,36 @@
+@import "../../../css/variables.scss";
+
 .game-list {
   display: grid;
   grid-template-columns: repeat(5, 6rem);
   grid-gap: 1rem;
+
+  &__add {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    &__label {
+      text-align: center;
+    }
+
+    &__button {
+      width: 100%;
+      border: 0.1rem solid $borderColor;
+      cursor: pointer;
+      justify-self: center;
+      align-self: center;
+      padding: 1rem;
+
+      &:hover {
+        filter: brightness(150%);
+        border-width: 0.2rem;
+      }
+
+      &--selected {
+        filter: brightness(150%);
+        border-width: 0.2rem;
+      }
+    }
+  }
 }

@@ -14,16 +14,24 @@ import { Games } from "../../../../api/games";
 const Hub = props => {
   // React state
   const [currentGameId, setCurrentGameId] = useState(-1);
+  const [addGame, setAddGame] = useState(false);
   let currentGame = props.activeGames.find(el => el._id === currentGameId);
 
   return (
     <div className='hub'>
       <GameList
+        addGame={addGame}
+        finishAddGame={() => setAddGame(false)}
+        setAddGame={() => setAddGame(true)}
         activeGames={props.activeGames}
         currentGameId={currentGame ? currentGame._id : -1}
         changeCurrentGameId={setCurrentGameId}
       />
-      <GameDetail currentGame={currentGame} />
+      <GameDetail
+        currentGame={currentGame}
+        addGame={addGame}
+        finishAddGame={() => setAddGame(false)}
+      />
     </div>
   );
 };

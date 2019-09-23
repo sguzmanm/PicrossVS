@@ -12,7 +12,6 @@
   &__grid {
     display: grid;
     width: 100%;
-    border: 0.1rem solid $borderColor;
     cursor: pointer;
 
     &:hover {
@@ -27,6 +26,8 @@
   }
 
   &__item {
+    border: 0.1rem solid $borderColor;
+
     &--color0 {
       background-color: $player1Color;
     }

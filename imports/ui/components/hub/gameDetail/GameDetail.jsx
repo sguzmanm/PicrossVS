@@ -8,20 +8,20 @@ class GameDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      size: 0,
+      size: 5,
       numWaitedUsers: 0
     };
-    this.addGame = this.addGame.bind(this);
+    this.createGame = this.createGame.bind(this);
     this.updateSize = this.updateSize.bind(this);
     this.updateNumWaitedUsers = this.updateNumWaitedUsers.bind(this);
   }
 
-  addGame(e) {
-    e.preventDefault();
+  createGame() {
     Meteor.call("games.insert", this.state.size, this.state.numWaitedUsers);
   }
 
-  updateSize(size) {
+  updateSize(event) {
+    let size = parseInt(event.target.value, 10);
     this.setState({ size: size });
   }
 
@@ -36,7 +36,6 @@ class GameDetail extends Component {
     // Render game details
     if (!this.props.addGame) {
       let game = this.props.currentGame;
-      console.log("GAME", game);
       let users = game.players.map((el, index) => (
         <h4
           key={index}
@@ -53,7 +52,7 @@ class GameDetail extends Component {
             </h4>
             {users}
           </div>
-          {/*Define how to have a waiting room for the game*/}
+          {/*TODO: Define how to have a waiting room for the game*/}
           <button
             className='game-detail__button'
             onClick={() => console.log("Wiii I am playing")}>
@@ -70,26 +69,43 @@ class GameDetail extends Component {
       </option>
     ));
 
-    const numUserOptions = [1, 2, 3, 4].map(el => (
-      <GamePreview
-        key={el}
-        onClick={() => this.updateNumWaitedUsers(el)}></GamePreview>
-    ));
-    const addForm = (
-      <form onSubmit={this.addGame}>
-        <label htmlFor='boardSize'></label>
-        <select
-          name='boardSize'
-          value={this.state.size}
-          onChange={e => this.updateSize(e.target.value)}>
-          {sizeOptions}
-        </select>
+    const numUserOptions = [1, 2, 3, 4].map(el => {
+      return (
+        <GamePreview
+          key={el}
+          game={{ _id: el, numWaitedUsers: el }}
+          currentGameId={this.state.numWaitedUsers}
+          onClick={() => this.updateNumWaitedUsers(el)}></GamePreview>
+      );
+    });
 
-        {numUserOptions}
-      </form>
+    return (
+      <div className='game-detail'>
+        <div className='game-detail__form'>
+          <h4 className='game-detail__title'>New Game</h4>
+          <label className='game-detail__text' htmlFor='boardSize'>
+            Size
+          </label>
+          <select
+            className='game-detail__input'
+            id='boardSize'
+            name='boardSize'
+            value={this.state.size}
+            onChange={this.updateSize}>
+            {sizeOptions}
+          </select>
+
+          <div className='game-detail__board-list'>{numUserOptions}</div>
+        </div>
+
+        <button
+          className='game-detail__button'
+          type='submit'
+          onClick={() => this.createGame()}>
+          PLAY
+        </button>
+      </div>
     );
-
-    return <div className='game-detail'>{addForm}</div>;
   }
 }
 
