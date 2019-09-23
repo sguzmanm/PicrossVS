@@ -21,6 +21,7 @@
       justify-self: center;
       align-self: center;
       padding: 1rem;
+      background-color: $backgroundColor;
 
       &:hover {
         filter: brightness(150%);

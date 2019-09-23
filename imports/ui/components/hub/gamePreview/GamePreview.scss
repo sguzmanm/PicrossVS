@@ -27,6 +27,7 @@
 
   &__item {
     border: 0.1rem solid $borderColor;
+    background-color: $backgroundColor;
 
     &--color0 {
       background-color: $player1Color;

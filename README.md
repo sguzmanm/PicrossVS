@@ -69,6 +69,28 @@ This project is public under the MIT license, found [here](https://github.com/sg
 
 # Others
 
+## Backup json files
+
+- Meanwhile we get the DB to work hahaha we have backup json files in imports/api/db_upload that can be added to mongo by running the following commands:
+
+```
+mongoimport -h localhost:3001 -d meteor -c games --file games.json --jsonArray
+```
+
+```
+mongoimport -h localhost:3001 -d meteor -c boards --file boards.json --jsonArray
+```
+
+For prod DB:
+
+```
+mongoimport --uri "mongodb+srv://picrossVS:<Password url encoded>@picrossvs-xa3gu.mongodb.net/meteor" -c boards --type json --file boards.json --jsonArray
+```
+
+## Libs
+
+- dotenv: Env vars
+
 ## Meteor packages
 
 - fourseven:scss

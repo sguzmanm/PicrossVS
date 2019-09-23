@@ -53,8 +53,9 @@ class GameDetail extends Component {
         <div className='game-detail'>
           <div>
             <h4 className='game-detail__title'>
-              {board && board.name ? board.name : "???"}-
-              {board && board.rows ? board.rows.length : "?"}
+              {board && board.name ? board.name : "???"}:
+              {board && board.rows ? board.rows.length : "?"}X
+              {board && board.columns ? board.columns.length : "?"}
             </h4>
             {users}
           </div>
