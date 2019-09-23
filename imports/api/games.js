@@ -2,8 +2,7 @@ import {Meteor} from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
 // Boards collections and topics
-import { boardsTopic } from "../../../../util/topics";
-import { Boards } from "../../../../api/boards";
+import { Boards } from "../api/boards";
 
 // Game topics
 import { activeGamesTopic } from '../util/topics';
@@ -17,12 +16,10 @@ if (Meteor.isServer) {
     });
   }
 
-Meteor.startup(function () {
-    Meteor.subscribe(boardsTopic);
-});
-
 function findBoard(size)
 {
+    let data=Boards.find({}).fetch();
+    console.log("DATA",data);
     let boards=Boards.find({ rows: { $size: size } }).fetch();
     return boards[Math.floor(Math.random()*boards.length)];
 }

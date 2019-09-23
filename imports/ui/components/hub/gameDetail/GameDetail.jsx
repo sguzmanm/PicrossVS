@@ -36,6 +36,10 @@ class GameDetail extends Component {
     // Render game details
     if (!this.props.addGame) {
       let game = this.props.currentGame;
+      let board =
+        game.players && game.players.length > 0
+          ? game.players[0].board
+          : undefined;
       let users = game.players.map((el, index) => (
         <h4
           key={index}
@@ -43,12 +47,14 @@ class GameDetail extends Component {
           {el.user ? el.user.username : "A cool user"}
         </h4>
       ));
+
+      console.log("BOARD", board);
       return (
         <div className='game-detail'>
           <div>
             <h4 className='game-detail__title'>
-              {game.board ? game.board.title : "???"}-
-              {game.board ? game.board.length : "?"}
+              {board && board.name ? board.name : "???"}-
+              {board && board.rows ? board.rows.length : "?"}
             </h4>
             {users}
           </div>

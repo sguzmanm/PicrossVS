@@ -7,6 +7,9 @@ const GamePreview = props => {
   let game = props.game;
   let occuppiedRows = game.numWaitedUsers === 4 ? 1 : 2;
   let occuppiedCols = game.numWaitedUsers === 1 ? 2 : 1;
+  let board =
+    game.players && game.players.length > 0 ? game.players[0].board : undefined;
+
   const rows = 2;
   const cols = game.numWaitedUsers === 3 ? 3 : 2;
   const playersLength = game.players ? game.players.length : 0;
@@ -32,7 +35,7 @@ const GamePreview = props => {
     <div className='game-preview'>
       {/* Label with the sizeo f the board. ? if the size is unknown*/}
       <div className='game-preview__label'>
-        {game.board ? game.board.length : ""}
+        {board && board.rows ? board.rows.length : ""}
       </div>
       {/* Board grid with active players*/}
       <div
