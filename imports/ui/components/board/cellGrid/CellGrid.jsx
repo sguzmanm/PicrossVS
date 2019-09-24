@@ -8,9 +8,15 @@ const CellGrid = props => {
     gridTemplateRows: `repeat(${props.board.rows.length},3rem)`,
   }
 
-  containerStyle={
-      width:`calc(${props.board.columns.length*3}rem + ${(props.board.columns.length-1)*2}px)`,
-      height:`calc(${props.board.rows.length*3}rem + ${(props.board.rows.length-1)*2}px)`
+  containerStyle = {
+    width: `calc(${props.board.columns.length * 3}rem + ${(props.board.columns
+      .length -
+      1) *
+      2}px)`,
+    height: `calc(${props.board.rows.length * 3}rem + ${(props.board.rows
+      .length -
+      1) *
+      2}px)`,
   }
   return (
     <div className="cellGrid__container" style={containerStyle}>
@@ -42,7 +48,7 @@ CellGrid.propTypes = {
     goal: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   }).isRequired,
   uncoverCell: PropTypes.func.isRequired,
-  curCells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
+  curCells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
 }
 
 export default CellGrid

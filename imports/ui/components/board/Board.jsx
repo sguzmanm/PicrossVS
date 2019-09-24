@@ -6,10 +6,11 @@ import CellGrid from './cellGrid/CellGrid.jsx'
 const Board = props => {
   boardStyle = {
     gridTemplateColumns: `repeat(${props.board.columns.length + 1},3rem)`,
-    gridTemplateRows: `repeat(${props.board.rows.length + 1},3rem)`,
+    gridTemplateRows: `4rem repeat(${props.board.rows.length},3rem)`,
   }
   return (
     <div className="board__container">
+      <h2 className="board__name">{props.board.name}</h2>
       <div className="board" style={boardStyle}>
         <div></div>
         {props.board.columns.map((row, i) => {
@@ -32,7 +33,11 @@ const Board = props => {
             ></CellHint>
           )
         })}
-        <CellGrid board={props.board} uncoverCell={props.uncoverCell} curCells={props.curCells}></CellGrid>
+        <CellGrid
+          board={props.board}
+          uncoverCell={props.uncoverCell}
+          curCells={props.curCells}
+        ></CellGrid>
       </div>
     </div>
   )
@@ -46,7 +51,7 @@ Board.propTypes = {
     goal: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   }).isRequired,
   uncoverCell: PropTypes.func.isRequired,
-  curCells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
+  curCells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
 }
 
 export default Board

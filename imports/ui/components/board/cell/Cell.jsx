@@ -49,7 +49,6 @@ const Cell = props => {
       onClick={handleClick}
       onContextMenu={handleClick}
     >
-      {props.curCell}
     </div>
   )
 }

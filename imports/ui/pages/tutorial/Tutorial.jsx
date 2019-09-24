@@ -37,6 +37,18 @@ const Tutorial = () => {
         uncoverCell={(i, j, correct) => uncoverCell(i, j, correct, 1)}
         curCells={board1}
       ></Board>
+
+      <Board
+        board={boards[1]}
+        uncoverCell={(i, j, correct) => uncoverCell(i, j, correct, 2)}
+        curCells={board2}
+      ></Board>
+
+      <Board
+        board={boards[2]}
+        uncoverCell={(i, j, correct) => uncoverCell(i, j, correct, 3)}
+        curCells={board3}
+      ></Board>
     </div>
   )
 }
