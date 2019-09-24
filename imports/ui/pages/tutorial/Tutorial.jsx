@@ -1,12 +1,11 @@
-import React from 'react'
-import './Tutorial.scss'
-import BoardManager from '../../components/board/boardManager/BoardManager.jsx'
-import boards from '../../../util/boards.json'
+/* eslint-disable react/no-unescaped-entities */
 
-//console.log(boards[2].goal.reduce((prev,cur)=> prev+cur.reduce((prev2,cur2)=>prev2+cur2,0),0))
+import React from "react";
+import "./Tutorial.scss";
+import BoardManager from "../../components/board/boardManager/BoardManager.jsx";
+import boards from "../../../util/boards.json";
 
 const Tutorial = () => {
-
   return (
     <div className='tutorial'>
       <h1 className='tutorial__title'>Tutorial</h1>
@@ -58,10 +57,7 @@ const Tutorial = () => {
         <li className='tutorial__listItem'>And voila! solved board</li>
       </ol>
 
-      <BoardManager
-        board={boards[0]}
-        isTutorial={true}
-      ></BoardManager>
+      <BoardManager board={boards[0]} isTutorial={true}></BoardManager>
 
       <h2>Second board: Chicken</h2>
       <ol className='tutorial__list'>
@@ -104,10 +100,7 @@ const Tutorial = () => {
         </li>
       </ol>
 
-      <BoardManager
-        board={boards[1]}
-        isTutorial={true}
-      ></BoardManager>
+      <BoardManager board={boards[1]} isTutorial={true}></BoardManager>
 
       <h2>Third board: Butterfly</h2>
       <ol className='tutorial__list'>
@@ -133,11 +126,7 @@ const Tutorial = () => {
         </li>
       </ol>
 
-      <BoardManager
-        board={boards[2]}
-        isTutorial={true}
-      ></BoardManager>
-
+      <BoardManager board={boards[2]} isTutorial={true}></BoardManager>
     </div>
   );
 };
