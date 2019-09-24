@@ -24,7 +24,7 @@ Boards:{
 // Puntaje?
 
 - 100 por cada casilla
-- -300 por casilla mal puesta
+- -400 por casilla mal puesta
 - -2000 por abandono
 - 500-100\*n por orden de completitud
 
