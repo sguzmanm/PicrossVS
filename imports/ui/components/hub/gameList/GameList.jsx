@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { PropTypes } from "prop-types";
 import "./GameList.scss";
 
 import GamePreview from "../gamePreview/GamePreview.jsx";
@@ -79,3 +80,12 @@ const GameList = props => {
 };
 
 export default GameList;
+
+GameList.propTypes = {
+  currentGameId: PropTypes.number,
+  activeGames: PropTypes.array(PropTypes.object),
+  changeCurrentGameId: PropTypes.func,
+  addGame: PropTypes.func,
+  finishAddGame: PropTypes.func,
+  setAddGame: PropTypes.func
+};

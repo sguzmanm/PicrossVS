@@ -1,4 +1,5 @@
 import React from "react";
+import { PropTypes } from "prop-types";
 import "./GamePreview.scss";
 
 // Game preview component
@@ -53,3 +54,9 @@ const GamePreview = props => {
 };
 
 export default GamePreview;
+
+GamePreview.propTypes = {
+  game: PropTypes.object,
+  currentGameId: PropTypes.number,
+  onClick: PropTypes.func
+};
