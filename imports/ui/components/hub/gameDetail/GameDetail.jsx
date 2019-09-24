@@ -138,5 +138,5 @@ export default GameDetail;
 GameDetail.propTypes = {
   history: PropTypes.any,
   currentGame: PropTypes.object,
-  addGame: PropTypes.func
+  addGame: PropTypes.bool
 };

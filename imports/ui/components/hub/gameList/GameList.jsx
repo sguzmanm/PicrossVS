@@ -83,9 +83,9 @@ export default GameList;
 
 GameList.propTypes = {
   currentGameId: PropTypes.number,
-  activeGames: PropTypes.array(PropTypes.object),
+  activeGames: PropTypes.arrayOf(PropTypes.object),
   changeCurrentGameId: PropTypes.func,
-  addGame: PropTypes.func,
+  addGame: PropTypes.bool,
   finishAddGame: PropTypes.func,
   setAddGame: PropTypes.func
 };

@@ -50,5 +50,5 @@ export default HubContainer;
 
 Hub.propTypes = {
   history: PropTypes.any,
-  activeGames: PropTypes.array(PropTypes.object)
+  activeGames: PropTypes.arrayOf(PropTypes.object)
 };

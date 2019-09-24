@@ -1,5 +1,6 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
+import { PropTypes } from "prop-types";
 
 import "./Loading.scss";
 
@@ -27,6 +28,7 @@ const Loading = props => {
   let remainingUsers =
     game && game.numWaitedUsers ? game.numWaitedUsers - users.length : "";
 
+  let msg = "";
   // Setup message
   if (remainingUsers === 1) msg = `Still waiting for ${remainingUsers} player`;
   else msg = `Still waiting for ${remainingUsers} players`;
@@ -67,3 +69,9 @@ const Loading = props => {
 };
 
 export default Loading;
+
+Loading.propTypes = {
+  history: PropTypes.any,
+  currentGame: PropTypes.object,
+  currentUser: PropTypes.object
+};

@@ -5,6 +5,7 @@ import {
   Redirect,
   Switch
 } from "react-router-dom";
+import { PropTypes } from "prop-types";
 
 import Tutorial from "../pages/tutorial/Tutorial.jsx";
 import Game from "../pages/game/Game.jsx";
@@ -44,3 +45,8 @@ function AppRouter(props) {
 }
 
 export default AppRouter;
+
+AppRouter.propTypes = {
+  userId: PropTypes.string,
+  currentUser: PropTypes.object
+};
