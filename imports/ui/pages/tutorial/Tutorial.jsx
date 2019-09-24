@@ -1,65 +1,11 @@
 import React, { useState } from 'react'
 import './Tutorial.scss'
-import Board from '../../components/board/Board.jsx'
+import BoardManager from '../../components/board/boardManager/BoardManager.jsx'
 import boards from '../../../util/boards.json'
 
+//console.log(boards[2].goal.reduce((prev,cur)=> prev+cur.reduce((prev2,cur2)=>prev2+cur2,0),0))
+
 const Tutorial = () => {
-  const originalBoards = [
-    boards[0].curCells.map(function(arr) {
-      return arr.slice()
-    }),
-    boards[1].curCells.map(function(arr) {
-      return arr.slice()
-    }),
-    boards[2].curCells.map(function(arr) {
-      return arr.slice()
-    }),
-  ]
-
-  const [board1, setBoard1] = useState([...originalBoards[0]])
-  const [board2, setBoard2] = useState([...originalBoards[1]])
-  const [board3, setBoard3] = useState([...originalBoards[2]])
-
-  const uncoverCell = (i, j, changeToState, board) => {
-    let boardTemp = null
-    let setBoard = null
-    switch (board) {
-      case 1:
-        boardTemp = [...board1]
-        setBoard = setBoard1
-        break
-      case 2:
-        boardTemp = [...board2]
-        setBoard = setBoard2
-        break
-      case 3:
-        boardTemp = [...board3]
-        setBoard = setBoard3
-        break
-    }
-    boardTemp[i][j] = changeToState
-    setBoard(boardTemp)
-  }
-
-  const resetBoard = board => {
-    let setBoard
-    let originalBoard
-    switch (board) {
-      case 1:
-        setBoard = setBoard1
-        originalBoard = [...originalBoards[0]]
-        break
-      case 2:
-        setBoard = setBoard2
-        originalBoard = [...originalBoards[1]]
-        break
-      case 3:
-        setBoard = setBoard3
-        originalBoard = [...originalBoards[2]]
-        break
-    }
-    setBoard(originalBoard)
-  }
 
   return (
     <div className="tutorial">
@@ -111,15 +57,11 @@ const Tutorial = () => {
         </li>
         <li className="tutorial__listItem">And voila! solved board</li>
       </ol>
-      <Board
-        board={boards[0]}
-        uncoverCell={(i, j, correct) => uncoverCell(i, j, correct, 1)}
-        curCells={board1}
-      ></Board>
 
-      <button className="tutorial__button" onClick={() => resetBoard(1)}>
-        Reset board
-      </button>
+      <BoardManager
+        board={boards[0]}
+        isTutorial={true}
+      ></BoardManager>
 
       <h2>Second board: Chicken</h2>
       <ol className="tutorial__list">
@@ -162,15 +104,10 @@ const Tutorial = () => {
         </li>
       </ol>
 
-      <Board
+      <BoardManager
         board={boards[1]}
-        uncoverCell={(i, j, correct) => uncoverCell(i, j, correct, 2)}
-        curCells={board2}
-      ></Board>
-
-      <button className="tutorial__button" onClick={() => resetBoard(2)}>
-        Reset board
-      </button>
+        isTutorial={true}
+      ></BoardManager>
 
       <h2>Third board: Butterfly</h2>
       <ol className="tutorial__list">
@@ -196,15 +133,11 @@ const Tutorial = () => {
         </li>
       </ol>
 
-      <Board
+      <BoardManager
         board={boards[2]}
-        uncoverCell={(i, j, correct) => uncoverCell(i, j, correct, 3)}
-        curCells={board3}
-      ></Board>
+        isTutorial={true}
+      ></BoardManager>
 
-      <button className="tutorial__button" onClick={() => resetBoard(3)}>
-        Reset board
-      </button>
     </div>
   )
 }

@@ -37,6 +37,7 @@ const Board = props => {
           board={props.board}
           uncoverCell={props.uncoverCell}
           curCells={props.curCells}
+          state={props.state}
         ></CellGrid>
       </div>
     </div>
@@ -52,6 +53,7 @@ Board.propTypes = {
   }).isRequired,
   uncoverCell: PropTypes.func.isRequired,
   curCells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  state:PropTypes.number.isRequired
 }
 
 export default Board

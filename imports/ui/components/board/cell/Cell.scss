@@ -27,6 +27,10 @@
     }
   }
 
+  &--finished{
+    background: $secondaryColor;
+  }
+
   &--flagged,
   &--incorrect {
     position: relative;

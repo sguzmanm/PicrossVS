@@ -20,6 +20,7 @@ const Cell = props => {
   }
 
   const handleClick = e => {
+    if (props.state === 1) return
     if (e.type === 'click') {
       uncoverCell(true)
     } else if (e.type === 'contextmenu') {
@@ -29,6 +30,9 @@ const Cell = props => {
   }
 
   const extraClassName = () => {
+    if (props.state === 1 && props.curCell === 1) {
+      return 'cell--finished'
+    }
     let className = 'cell--undefined'
     switch (props.curCell) {
       case 1:
@@ -48,8 +52,7 @@ const Cell = props => {
       className={`cell ${extraClassName()}`}
       onClick={handleClick}
       onContextMenu={handleClick}
-    >
-    </div>
+    ></div>
   )
 }
 
@@ -59,6 +62,7 @@ Cell.propTypes = {
   goal: PropTypes.number,
   uncoverCell: PropTypes.func.isRequired,
   curCell: PropTypes.number,
+  state: PropTypes.number.isRequired,
 }
 
 export default Cell

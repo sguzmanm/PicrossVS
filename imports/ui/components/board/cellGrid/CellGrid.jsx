@@ -27,6 +27,7 @@ const CellGrid = props => {
               <Cell
                 i={i}
                 j={j}
+                state={props.state}
                 goal={props.board.goal[i][j]}
                 key={i + '' + j}
                 uncoverCell={props.uncoverCell}
@@ -49,6 +50,7 @@ CellGrid.propTypes = {
   }).isRequired,
   uncoverCell: PropTypes.func.isRequired,
   curCells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  state:PropTypes.number.isRequired
 }
 
 export default CellGrid
