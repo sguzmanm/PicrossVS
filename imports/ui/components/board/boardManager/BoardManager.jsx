@@ -15,6 +15,7 @@ const BoardManager = props => {
   const [board, setBoard] = useState(...originalBoard);
   const [numCorrect, setNumCorrect] = useState(0);
   const [boardState, setBoardState] = useState(0);
+  const [score, setScore] = useState(500);
 
   const finishBoard = () => {
     const boardTemp = [...originalBoard][0];
@@ -35,11 +36,14 @@ const BoardManager = props => {
     boardTemp[i][j] = changeToState;
     setBoard(boardTemp);
     if (changeToState === 1) {
+      setScore(score + 100);
       setNumCorrect(numCorrect + 1);
       if (numCorrect + 1 === props.board.numCorrect) {
         setBoardState(1);
         finishBoard();
       }
+    } else if (changeToState === -1) {
+      setScore(score - 400);
     }
   };
 
@@ -57,6 +61,8 @@ const BoardManager = props => {
         curCells={board}
         state={boardState}
       ></Board>
+
+      <p>{score}</p>
 
       {props.isTutorial ? (
         <button className="boardManager__button" onClick={resetBoard}>

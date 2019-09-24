@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { PropTypes } from "prop-types";
-import "./GameList.scss";
+import React, { useState } from 'react';
+import { PropTypes } from 'prop-types';
+import './GameList.scss';
 
-import GamePreview from "../gamePreview/GamePreview.jsx";
+import GamePreview from '../gamePreview/GamePreview.jsx';
 
 const GameList = props => {
   // Filter
-  const [filterCriteria, setFilterCriteria] = useState("");
+  const [filterCriteria, setFilterCriteria] = useState('');
 
-  const sizeOptions = ["", 5, 10, 20].map(el => (
+  const sizeOptions = ['All', 5, 10, 20].map(el => (
     <option key={el} value={el}>
       {el}
     </option>
@@ -18,7 +18,7 @@ const GameList = props => {
     if (games === null) return;
 
     let tempGames = games;
-    if (filterCriteria !== "")
+    if (filterCriteria !== '')
       tempGames = games.filter(el => {
         return el.players[0].board.rows.length === parseInt(filterCriteria, 10);
       });
@@ -38,42 +38,50 @@ const GameList = props => {
   };
 
   const updateFilter = e => {
-    setFilterCriteria(e.target.value);
-    if (filterCriteria === "") {
+    if (e.target.value === 'All') {
+      setFilterCriteria('');
+    } else {
+      console.log('aja');
+      setFilterCriteria(e.target.value);
+    }
+    if (filterCriteria === 'All') {
       return;
     }
   };
 
   return (
-    <div className='game-list'>
-      <div className='game-list__filter'>
-        <label className='game-list__text' htmlFor='boardSize'>
-          Size
-        </label>
-        <select
-          id='boardSize'
-          name='boardSize'
-          className='game-list__input'
-          value={filterCriteria}
-          onChange={updateFilter}>
-          {sizeOptions}
-        </select>
-      </div>
-      <div className='game-list__grid'>
-        <div className='game-list__add'>
+    <div className="game-list">
+      <h2>Available games</h2>
+      <div className="game-list__grid">
+        <div className="game-list__add">
           {/* Label for add button*/}
-          <div className='game-list__add__label'>New</div>
+          <div className="game-list__add__label">Create new</div>
           {/* Board grid*/}
           <button
             className={`game-list__add__button ${
-              props.addGame ? "game-list__add__button--selected" : ""
+              props.addGame ? 'game-list__add__button--selected' : ''
             }`}
-            onClick={props.setAddGame}>
-            <img src={"/icons/add.svg"} alt='Add icon' />
+            onClick={props.setAddGame}
+          >
+            <img src={'/icons/add.svg'} alt="Add icon" />
           </button>
         </div>
 
         {filterActiveGames(props.activeGames)}
+      </div>
+      <div className="game-list__filter">
+        <label className="game-list__text" htmlFor="boardSize">
+          Filter board size
+        </label>
+        <select
+          id="boardSize"
+          name="boardSize"
+          className="game-list__input"
+          value={filterCriteria}
+          onChange={updateFilter}
+        >
+          {sizeOptions}
+        </select>
       </div>
     </div>
   );
@@ -87,5 +95,5 @@ GameList.propTypes = {
   changeCurrentGameId: PropTypes.func,
   addGame: PropTypes.bool,
   finishAddGame: PropTypes.func,
-  setAddGame: PropTypes.func
+  setAddGame: PropTypes.func,
 };
