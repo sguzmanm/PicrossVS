@@ -8,7 +8,7 @@ import "./App.scss";
 
 const App = props => {
   return (
-    <div>
+    <div className="app">
       <AccountsUIWrapper />
       <Router currentUser={props.currentUser}></Router>
     </div>

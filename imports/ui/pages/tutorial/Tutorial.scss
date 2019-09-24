@@ -1,0 +1,10 @@
+.tutorial {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title{
+    font-size: 3rem;
+  }
+}
