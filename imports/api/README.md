@@ -21,9 +21,16 @@ Boards:{
 }
 ```
 
+// Puntaje?
+
+- 100 por cada casilla
+- -300 por casilla mal puesta
+- -2000 por abandono
+- 500-100\*n por orden de completitud
+
 ```
 Game: {
-    state:0/1/2 (WaitingForPlayers,Active,Finished),
+    state:0/1/2/3 (WaitingForPlayers,Active,Finished,Cancelled),
     players:[]={user,boards:Board, curScore},
     numWaitedUsers (Num of users the game should wait for),
     board: Base board for the game

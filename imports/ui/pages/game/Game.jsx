@@ -1,7 +1,6 @@
 import React from "react";
+import GameContainer from "../../components/game/game/Game.jsx";
 
-const Game = () => {
-  return <h1>Here should be the board</h1>;
-};
+const Game = props => <GameContainer {...props} />;
 
 export default Game;
