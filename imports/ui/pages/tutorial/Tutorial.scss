@@ -1,35 +1,21 @@
 @import '../../css/variables.scss';
 
-
 .tutorial {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  &__button{
-    color:white;
-    background: $secondaryColor;
-    outline:none;
-    border:none;
-    padding: 0.3rem 1rem;
-    text-transform: uppercase;
-    margin: 1rem;
-    cursor: pointer;
-    font-weight: bold;
+  &__title {
+    font-size: 2.5rem;
   }
 
-  &__title{
-    font-size: 3rem;
-  }
-
-  &__list{
-    margin:0 auto;
+  &__list {
+    margin: 0 auto;
     max-width: 50%;
 
-    &Item{
-      margin:1rem 0;
+    &Item {
+      margin: 1rem 0;
     }
   }
-
 }

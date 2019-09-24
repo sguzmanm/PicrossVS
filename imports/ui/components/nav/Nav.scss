@@ -1,0 +1,15 @@
+@import '../../css/variables.scss';
+
+.nav {
+  height: 3rem;
+  background: $backgroundColor;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+
+  &__title {
+    color: $secondaryColor;
+    font-size: 2rem;
+  }
+}
