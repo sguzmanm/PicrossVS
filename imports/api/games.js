@@ -5,15 +5,23 @@ import { Mongo } from 'meteor/mongo';
 import { Boards } from "../api/boards";
 
 // Game topics
-import { activeGamesTopic } from '../util/topics';
+import { activeGamesTopic,gamesTopic } from '../util/topics';
 
+// Game states
+import {WAITING,ACTIVE,CANCELLED} from '../util/gameStates';
+
+// DB Access
 export const Games = new Mongo.Collection('games');
 
 if (Meteor.isServer) {
     // This code only runs on the server
     Meteor.publish(activeGamesTopic, function linksPublication() {
-      return Games.find({state:0});
+      return Games.find({state:WAITING});
     });
+
+    Meteor.publish(gamesTopic, function linksPublication() {
+        return Games.find({});
+      });
   }
 
 function findBoard(size)
@@ -26,9 +34,6 @@ function findBoard(size)
 
 Meteor.methods({
     'games.insert'(size,numWaitedUsers){
-
-        console.log(size,numWaitedUsers);
-
         if(size!==5 && size !== 10 && size !== 20)
             throw new Meteor.Error("Board size does not match");
         if(numWaitedUsers<1 || numWaitedUsers>4)
@@ -48,6 +53,49 @@ Meteor.methods({
             ],
             createdAt:new Date(),
         }
-        Games.insert(game)
+        return Games.insert(game)
+    },
+    'games.addUser'(id){
+        // Get user and game
+        let user=Meteor.user();
+        let game=Games.find({_id:id}).fetch()[0];
+        // Make validations
+        if(!game)
+            throw new Meteor.Error(`There is no game with id ${id}`)
+        if(game.players.some(el=>el.user._id===user._id))
+            throw new Meteor.Error(`${user.username} is already part of the game`)
+        // Add user
+        game.players.push({
+            user:user,
+            board:game.players[0].board
+        })
+
+        // Start game if everything is setup
+        if(game.players.length===game.numWaitedUsers)
+        {
+            game.state=ACTIVE;
+            // TODO: Implement timeout for finishing the game on the server
+        }
+
+        Games.update(id,{$set:game});
+    },
+    'games.removeUser'(id){
+        // Get user and game
+        let user=Meteor.user();
+        let game=Games.find({_id:id}).fetch()[0];
+        // Make validations
+        if(!game)
+            throw new Meteor.Error(`There is no game with id ${id}`)
+        let playerIndex=game.players.findIndex(el=>el.user._id===user._id);
+        if(playerIndex===-1)
+            throw new Meteor.Error(`${user.username} is not part of the game`)
+        // Remove player
+        game.players.splice(playerIndex,1);
+
+        // Validate if the user is the owner of the game
+        if(game.players.length===0)
+            game.state=CANCELLED;
+
+        Games.update(id,{$set:game});
     }
 })

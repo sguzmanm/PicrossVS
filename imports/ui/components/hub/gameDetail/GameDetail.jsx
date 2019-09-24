@@ -12,12 +12,31 @@ class GameDetail extends Component {
       numWaitedUsers: 0
     };
     this.createGame = this.createGame.bind(this);
+    this.joinGame = this.joinGame.bind(this);
     this.updateSize = this.updateSize.bind(this);
     this.updateNumWaitedUsers = this.updateNumWaitedUsers.bind(this);
   }
 
   createGame() {
-    Meteor.call("games.insert", this.state.size, this.state.numWaitedUsers);
+    Meteor.call(
+      "games.insert",
+      this.state.size,
+      this.state.numWaitedUsers,
+      (error, result) => {
+        if (error) {
+          console.error(error);
+          return;
+        }
+        console.log("GAMEID", result);
+        this.props.history.push(`/game/${result}`);
+      }
+    );
+  }
+
+  joinGame(id) {
+    console.log("JOIN GAME", id);
+    Meteor.call("games.addUser", id);
+    this.props.history.push(`/game/${id}`);
   }
 
   updateSize(event) {
@@ -62,7 +81,7 @@ class GameDetail extends Component {
           {/*TODO: Define how to have a waiting room for the game*/}
           <button
             className='game-detail__button'
-            onClick={() => this.props.history.push("/game", game._id)}>
+            onClick={() => this.joinGame(game._id)}>
             PLAY
           </button>
         </div>

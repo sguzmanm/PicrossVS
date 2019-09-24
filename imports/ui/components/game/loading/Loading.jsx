@@ -1,5 +1,12 @@
 import React from "react";
+import { Meteor } from "meteor/meteor";
+
 import "./Loading.scss";
+
+const abandonGame = (id, history) => {
+  Meteor.call("games.removeUser", id);
+  history.push("/hub");
+};
 
 const Loading = props => {
   const game = props.currentGame;
@@ -14,13 +21,18 @@ const Loading = props => {
   }
 
   let showButton = true;
-  let msg = `Still waiting for players ${4 - users.length}`;
+  let remainingUsers =
+    game && game.numWaitedUsers ? game.numWaitedUsers - users.length : "";
+
+  console.log("WAITING", game, remainingUsers);
+  if (remainingUsers === 1) msg = `Still waiting for ${remainingUsers} player`;
+  else msg = `Still waiting for ${remainingUsers} players`;
 
   if (
-    !currentUser ||
-    !users.some(username => username === currentUser.username)
+    game &&
+    (!currentUser ||
+      !game.players.some(el => el.user.username === currentUser.username))
   ) {
-    console.log("Not part");
     showButton = false;
     msg =
       "You are not part of this game, you will be redirected to the home screen";
@@ -40,7 +52,9 @@ const Loading = props => {
         <h4>{msg}</h4>
         {users}
         {showButton ? (
-          <button onClick={() => console.log("TEST")}>CANCEL</button>
+          <button onClick={() => abandonGame(game._id, props.history)}>
+            DROP OUT
+          </button>
         ) : null}
       </div>
     </div>

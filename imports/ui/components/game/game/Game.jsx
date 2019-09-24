@@ -5,7 +5,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import Loading from "../loading/Loading.jsx";
 
 // Games collections and topics
-import { activeGamesTopic } from "../../../../util/topics";
+import { gamesTopic } from "../../../../util/topics";
 import { Games } from "../../../../api/games";
 
 const isLoading = game => {
@@ -15,7 +15,7 @@ const isLoading = game => {
 };
 
 const Game = props => {
-  console.log(props.currentGame, props.currentUser);
+  console.log(props, props.currentGame, props.currentUser);
   if (isLoading(props.currentGame))
     return (
       <Loading
@@ -30,9 +30,7 @@ const Game = props => {
 // Export with props from backend
 export default GameContainer = withTracker(props => {
   let gameId = props.match.params.id;
-  console.log("History", props.history);
-  console.log("Game id", gameId);
-  Meteor.subscribe(activeGamesTopic);
+  Meteor.subscribe(gamesTopic);
   return {
     currentGame: Games.find({ _id: gameId }).fetch()[0]
   };

@@ -12,6 +12,7 @@ import Hub from "../pages/hub/Hub.jsx";
 
 function AppRouter(props) {
   const userId = props.userId;
+  const currentUser = props.currentUser;
   console.log("Current userId", userId);
   console.log("Current props", props);
   console.log("Current match", props.match);
@@ -25,12 +26,16 @@ function AppRouter(props) {
         />
         <Route
           path='/hub'
-          render={() => (userId ? <Hub /> : <Redirect to='/' />)}
+          render={props => (userId ? <Hub {...props} /> : <Redirect to='/' />)}
         />
         <Route
           path='/game/:id'
-          component={props =>
-            userId ? <Game {...props} /> : <Redirect to='/' />
+          render={props =>
+            userId ? (
+              <Game {...props} currentUser={currentUser} />
+            ) : (
+              <Redirect to='/' />
+            )
           }
         />
         <Route

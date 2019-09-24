@@ -28,6 +28,7 @@ const Hub = props => {
         changeCurrentGameId={setCurrentGameId}
       />
       <GameDetail
+        history={props.history}
         currentGame={currentGame}
         addGame={addGame}
         finishAddGame={() => setAddGame(false)}

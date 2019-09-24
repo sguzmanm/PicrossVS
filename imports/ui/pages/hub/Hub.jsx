@@ -3,8 +3,8 @@ import "./Hub.scss";
 
 import HubComponent from "../../components/hub/hub/Hub.jsx";
 
-const Hub = () => {
-  return <HubComponent />;
+const Hub = props => {
+  return <HubComponent {...props} />;
 };
 
 export default Hub;
