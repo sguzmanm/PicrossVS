@@ -1,0 +1,21 @@
+.cellHint {
+  background: transparent;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  
+  &__text {
+
+    text-align: end;
+    width: 100%;
+    margin: 0;
+
+    &--isCol {
+      text-align: center;
+    }
+  }
+
+  &--isCol {
+    flex-direction: column;
+  }
+}

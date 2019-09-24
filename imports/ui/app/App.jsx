@@ -10,7 +10,7 @@ const App = props => {
   console.log("App props", props);
 
   return (
-    <div>
+    <div className="app">
       <AccountsUIWrapper />
       <Router currentUser={props.currentUser} userId={props.userId}></Router>
     </div>

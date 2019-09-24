@@ -1,0 +1,51 @@
+@import '../../../css/variables.scss';
+
+.cell {
+  background: $backgroundColor;
+  cursor: pointer;
+  position: relative;
+
+  &--undefined:hover {
+    background: $hoveredColor;
+  }
+
+  &--correct {
+    background: $mainColor;
+  }
+
+  &--incorrect {
+    &:before,
+    &:after {
+      background: $incorrectColor;
+    }
+  }
+
+  &--flagged {
+    &:before,
+    &:after {
+      background: $opaqueTextColor;
+    }
+  }
+
+  &--flagged,
+  &--incorrect {
+    position: relative;
+
+    &:before,
+    &:after {
+      position: absolute;
+      content: ' ';
+      height: 1.5rem;
+      width: 2px;
+      left: 50%;
+      top:50%;
+      margin-top: -0.75rem;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+}
