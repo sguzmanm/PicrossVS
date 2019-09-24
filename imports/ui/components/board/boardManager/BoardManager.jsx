@@ -50,8 +50,6 @@ const BoardManager = props => {
     setBoardState(0)
   }
 
-  console.log(board)
-
   return (
     <div className="tutorial">
       <h1 className="tutorial__title">Tutorial</h1>
