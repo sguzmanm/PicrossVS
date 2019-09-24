@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
+import { PropTypes } from "prop-types";
 import "./GameDetail.scss";
 
 import GamePreview from "../gamePreview/GamePreview.jsx";
@@ -133,3 +134,9 @@ class GameDetail extends Component {
 }
 
 export default GameDetail;
+
+GameDetail.propTypes = {
+  history: PropTypes.any,
+  currentGame: PropTypes.object,
+  addGame: PropTypes.bool
+};

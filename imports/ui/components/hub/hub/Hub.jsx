@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
 import "./Hub.scss";
 
 //Subcomponents
@@ -38,9 +39,16 @@ const Hub = props => {
 };
 
 // Export with props from backend
-export default HubContainer = withTracker(() => {
+const HubContainer = withTracker(() => {
   Meteor.subscribe(activeGamesTopic);
   return {
     activeGames: Games.find({}).fetch()
   };
 })(Hub);
+
+export default HubContainer;
+
+Hub.propTypes = {
+  history: PropTypes.any,
+  activeGames: PropTypes.arrayOf(PropTypes.object)
+};

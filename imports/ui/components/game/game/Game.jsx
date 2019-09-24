@@ -28,10 +28,12 @@ const Game = props => {
 };
 
 // Export with props from backend
-export default GameContainer = withTracker(props => {
+const GameContainer = withTracker(props => {
   let gameId = props.match.params.id;
   Meteor.subscribe(gamesTopic);
   return {
     currentGame: Games.find({ _id: gameId }).fetch()[0]
   };
 })(Game);
+
+export default GameContainer;
