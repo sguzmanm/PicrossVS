@@ -31,9 +31,12 @@
   margin-left: auto;
 
   &__content {
-    position: absolute;
+    top: 40%;
     left: 40%;
-    top: 65%;
+    position: absolute;
+    height: auto;
+    margin: auto;
+
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -57,53 +60,39 @@
   }
 
   &__cube {
-    top: 40%;
-    left: 40%;
-    position: absolute;
-    width: 50%;
-    height: auto;
-    margin: auto;
+    display: grid;
+    gap: 2rem;
+    grid-template-rows: repeat(2, 5rem);
+    grid-template-columns: repeat(2, 5rem);
 
-    width: 6rem;
-    height: 6rem;
     -webkit-transform: translate(-100px, -100px) scale(1)
       translate(100px, 100px);
     transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
 
-    margin: 0 auto;
-
     div {
-      position: absolute;
-      width: 80px;
-      height: 80px;
-      top: 10px;
-      left: 10px;
       background: $player1Color;
+      border: 0.2rem solid $borderColor;
       -webkit-animation: lds-cube 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
       animation: lds-cube 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
       -webkit-animation-delay: -0.3s;
       animation-delay: -0.3s;
+      width: 5.5rem;
+      height: 5.5rem;
     }
 
     div:nth-child(2) {
-      top: 10px;
-      left: 110px;
       background: $player2Color;
       -webkit-animation-delay: -0.2s;
       animation-delay: -0.2s;
     }
 
     div:nth-child(3) {
-      top: 110px;
-      left: 110px;
       background: $player4Color;
       -webkit-animation-delay: 0s;
       animation-delay: 0s;
     }
 
     div:nth-child(4) {
-      top: 110px;
-      left: 10px;
       background: $player3Color;
       -webkit-animation-delay: -0.1s;
       animation-delay: -0.1s;

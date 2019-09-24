@@ -3,15 +3,18 @@ import { Meteor } from "meteor/meteor";
 
 import "./Loading.scss";
 
+// Abandon the game by dropping out
 const abandonGame = (id, history) => {
   Meteor.call("games.removeUser", id);
   history.push("/hub");
 };
 
 const Loading = props => {
+  // Consts used
   const game = props.currentGame;
   const currentUser = props.currentUser;
   let users = [];
+  // Setup users signed into the game
   if (game) {
     users = game.players.map((el, index) => (
       <p key={index}>
@@ -24,10 +27,11 @@ const Loading = props => {
   let remainingUsers =
     game && game.numWaitedUsers ? game.numWaitedUsers - users.length : "";
 
-  console.log("WAITING", game, remainingUsers);
+  // Setup message
   if (remainingUsers === 1) msg = `Still waiting for ${remainingUsers} player`;
   else msg = `Still waiting for ${remainingUsers} players`;
 
+  // REdirect if the user is not part of the game
   if (
     game &&
     (!currentUser ||
@@ -40,15 +44,16 @@ const Loading = props => {
       props.history.push("/hub");
     }, 5000);
   }
+  // Return loader
   return (
     <div className='loader'>
-      <div className='loader__cube'>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
       <div className='loader__content'>
+        <div className='loader__cube'>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
         <h4>{msg}</h4>
         {users}
         {showButton ? (
