@@ -1,6 +1,6 @@
-import React from "react";
-import { PropTypes } from "prop-types";
-import "./GamePreview.scss";
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import './GamePreview.scss';
 
 // Game preview component
 const GamePreview = props => {
@@ -22,31 +22,32 @@ const GamePreview = props => {
       <div
         key={i}
         className={`game-preview__item 
-          ${i < playersLength ? "game-preview__item--color" + i : ""}`}
+          ${i < playersLength ? 'game-preview__item--color' + i : ''}`}
         style={{
           gridRow: `span ${occuppiedRows}`,
           gridColumn: `span ${occuppiedCols}`,
-          height: `${3 * occuppiedRows}rem`
+          height: `${3 * occuppiedRows}rem`,
         }}
-        onClick={() => props.onClick()}></div>
+        onClick={() => props.onClick()}
+      ></div>
     );
   }
-  console.log(game._id);
   return (
-    <div className='game-preview'>
+    <div className="game-preview">
       {/* Label with the sizeo f the board. ? if the size is unknown*/}
-      <div className='game-preview__label'>
-        {board && board.rows ? board.rows.length : ""}
+      <div className="game-preview__label">
+        {board && board.rows ? board.rows.length : ''}
       </div>
       {/* Board grid with active players*/}
       <div
         className={`game-preview__grid ${
-          props.currentGameId === game._id ? "game-preview__grid--selected" : ""
+          props.currentGameId === game._id ? 'game-preview__grid--selected' : ''
         }`}
         style={{
           gridTemplateRows: `repeat( ${rows},1fr)`,
-          gridTemplateColumns: `repeat(${cols},1fr)`
-        }}>
+          gridTemplateColumns: `repeat(${cols},1fr)`,
+        }}
+      >
         {squares}
       </div>
     </div>
@@ -58,5 +59,5 @@ export default GamePreview;
 GamePreview.propTypes = {
   game: PropTypes.object,
   currentGameId: PropTypes.number,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };

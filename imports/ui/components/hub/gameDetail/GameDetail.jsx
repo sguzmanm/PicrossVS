@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { Meteor } from "meteor/meteor";
-import { PropTypes } from "prop-types";
-import "./GameDetail.scss";
+import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
+import { PropTypes } from 'prop-types';
+import './GameDetail.scss';
 
-import GamePreview from "../gamePreview/GamePreview.jsx";
+import GamePreview from '../gamePreview/GamePreview.jsx';
 
 class GameDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       size: 5,
-      numWaitedUsers: 0
+      numWaitedUsers: 0,
     };
     this.createGame = this.createGame.bind(this);
     this.joinGame = this.joinGame.bind(this);
@@ -20,7 +20,7 @@ class GameDetail extends Component {
 
   createGame() {
     Meteor.call(
-      "games.insert",
+      'games.insert',
       this.state.size,
       this.state.numWaitedUsers,
       (error, result) => {
@@ -34,7 +34,7 @@ class GameDetail extends Component {
   }
 
   joinGame(id) {
-    Meteor.call("games.addUser", id);
+    Meteor.call('games.addUser', id);
     this.props.history.push(`/game/${id}`);
   }
 
@@ -61,25 +61,27 @@ class GameDetail extends Component {
       let users = game.players.map((el, index) => (
         <h4
           key={index}
-          className={`game-detail__text game-detail__text--color${index}`}>
-          {el.user ? el.user.username : "A cool user"}
+          className={`game-detail__text game-detail__text--color${index}`}
+        >
+          {el.user ? el.user.username : 'A cool user'}
         </h4>
       ));
 
       return (
-        <div className='game-detail'>
+        <div className="game-detail">
           <div>
-            <h4 className='game-detail__title'>
-              {board && board.name ? board.name : "???"}:
-              {board && board.rows ? board.rows.length : "?"}X
-              {board && board.columns ? board.columns.length : "?"}
+            <h4 className="game-detail__title">
+              {board && board.name ? board.name : '???'}:
+              {board && board.rows ? board.rows.length : '?'}X
+              {board && board.columns ? board.columns.length : '?'}
             </h4>
             {users}
           </div>
           {/*TODO: Define how to have a waiting room for the game*/}
           <button
-            className='game-detail__button'
-            onClick={() => this.joinGame(game._id)}>
+            className="game-detail__button"
+            onClick={() => this.joinGame(game._id)}
+          >
             PLAY
           </button>
         </div>
@@ -99,33 +101,36 @@ class GameDetail extends Component {
           key={el}
           game={{ _id: el, numWaitedUsers: el }}
           currentGameId={this.state.numWaitedUsers}
-          onClick={() => this.updateNumWaitedUsers(el)}></GamePreview>
+          onClick={() => this.updateNumWaitedUsers(el)}
+        ></GamePreview>
       );
     });
 
     return (
-      <div className='game-detail'>
-        <div className='game-detail__form'>
-          <h4 className='game-detail__title'>New Game</h4>
-          <label className='game-detail__text' htmlFor='boardSize'>
-            Size
+      <div className="game-detail">
+        <div className="game-detail__form">
+          <h4 className="game-detail__title">New Game</h4>
+          <label className="game-detail__text" htmlFor="boardSize">
+            Board size
           </label>
           <select
-            className='game-detail__input'
-            id='boardSize'
-            name='boardSize'
+            className="game-detail__input"
+            id="boardSize"
+            name="boardSize"
             value={this.state.size}
-            onChange={this.updateSize}>
+            onChange={this.updateSize}
+          >
             {sizeOptions}
           </select>
-
-          <div className='game-detail__board-list'>{numUserOptions}</div>
+          <h4>Number of players</h4>
+          <div className="game-detail__board-list">{numUserOptions}</div>
         </div>
 
         <button
-          className='game-detail__button'
-          type='submit'
-          onClick={() => this.createGame()}>
+          className="game-detail__button"
+          type="submit"
+          onClick={() => this.createGame()}
+        >
           PLAY
         </button>
       </div>
@@ -138,5 +143,5 @@ export default GameDetail;
 GameDetail.propTypes = {
   history: PropTypes.any,
   currentGame: PropTypes.object,
-  addGame: PropTypes.bool
+  addGame: PropTypes.bool,
 };
