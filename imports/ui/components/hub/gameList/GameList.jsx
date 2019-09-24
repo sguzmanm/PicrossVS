@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "./GameList.scss";
 
 import GamePreview from "../gamePreview/GamePreview.jsx";
 
 const GameList = props => {
-  let games = null;
+  // Filter
+  const [filterCriteria, setFilterCriteria] = useState("");
 
-  if (props.activeGames) {
-    games = props.activeGames.map(el => {
+  const sizeOptions = ["", 5, 10, 20].map(el => (
+    <option key={el} value={el}>
+      {el}
+    </option>
+  ));
+
+  const filterActiveGames = games => {
+    if (games === null) return;
+
+    let tempGames = games;
+    if (filterCriteria !== "")
+      tempGames = games.filter(el => {
+        return el.players[0].board.rows.length === parseInt(filterCriteria, 10);
+      });
+    return tempGames.map(el => {
       return (
         <GamePreview
           key={el._id}
@@ -20,25 +34,46 @@ const GameList = props => {
         />
       );
     });
-  }
+  };
 
-  console.log("ADD GAME", props.addGame);
+  const updateFilter = e => {
+    setFilterCriteria(e.target.value);
+    if (filterCriteria === "") {
+      return;
+    }
+  };
+
   return (
     <div className='game-list'>
-      <div className='game-list__add'>
-        {/* Label for add button*/}
-        <div className='game-list__add__label'>New</div>
-        {/* Board grid*/}
-        <button
-          className={`game-list__add__button ${
-            props.addGame ? "game-list__add__button--selected" : ""
-          }`}
-          onClick={props.setAddGame}>
-          <img src={"/icons/add.svg"} alt='Add icon' />
-        </button>
+      <div className='game-list__filter'>
+        <label className='game-list__text' htmlFor='boardSize'>
+          Size
+        </label>
+        <select
+          id='boardSize'
+          name='boardSize'
+          className='game-list__input'
+          value={filterCriteria}
+          onChange={updateFilter}>
+          {sizeOptions}
+        </select>
       </div>
+      <div className='game-list__grid'>
+        <div className='game-list__add'>
+          {/* Label for add button*/}
+          <div className='game-list__add__label'>New</div>
+          {/* Board grid*/}
+          <button
+            className={`game-list__add__button ${
+              props.addGame ? "game-list__add__button--selected" : ""
+            }`}
+            onClick={props.setAddGame}>
+            <img src={"/icons/add.svg"} alt='Add icon' />
+          </button>
+        </div>
 
-      {games}
+        {filterActiveGames(props.activeGames)}
+      </div>
     </div>
   );
 };

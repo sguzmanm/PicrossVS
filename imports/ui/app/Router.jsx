@@ -13,9 +13,6 @@ import Hub from "../pages/hub/Hub.jsx";
 function AppRouter(props) {
   const userId = props.userId;
   const currentUser = props.currentUser;
-  console.log("Current userId", userId);
-  console.log("Current props", props);
-  console.log("Current match", props.match);
   return (
     <Router>
       <Switch>

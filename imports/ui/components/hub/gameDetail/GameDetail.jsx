@@ -27,14 +27,12 @@ class GameDetail extends Component {
           console.error(error);
           return;
         }
-        console.log("GAMEID", result);
         this.props.history.push(`/game/${result}`);
       }
     );
   }
 
   joinGame(id) {
-    console.log("JOIN GAME", id);
     Meteor.call("games.addUser", id);
     this.props.history.push(`/game/${id}`);
   }
@@ -67,7 +65,6 @@ class GameDetail extends Component {
         </h4>
       ));
 
-      console.log("BOARD", board);
       return (
         <div className='game-detail'>
           <div>
