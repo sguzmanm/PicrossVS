@@ -11,25 +11,30 @@ import Game from "../pages/game/Game.jsx";
 import Hub from "../pages/hub/Hub.jsx";
 
 function AppRouter(props) {
-  const user = props.currentUser;
+  const userId = props.userId;
+  console.log("Current userId", userId);
+  console.log("Current props", props);
+  console.log("Current match", props.match);
   return (
     <Router>
       <Switch>
         <Route
           path='/'
           exact
-          render={() => (user ? <Redirect to='/hub' /> : <Tutorial />)}
+          render={() => (userId ? <Redirect to='/hub' /> : <Tutorial />)}
         />
         <Route
           path='/hub'
-          render={() => (user ? <Hub /> : <Redirect to='/' />)}
+          render={() => (userId ? <Hub /> : <Redirect to='/' />)}
         />
         <Route
-          path='/game'
-          render={() => (user ? <Game /> : <Redirect to='/' />)}
+          path='/game/:id'
+          component={props =>
+            userId ? <Game {...props} /> : <Redirect to='/' />
+          }
         />
         <Route
-          render={() => (user ? <Redirect to='/hub' /> : <Redirect to='/' />)}
+          render={() => (userId ? <Redirect to='/hub' /> : <Redirect to='/' />)}
         />
       </Switch>
     </Router>

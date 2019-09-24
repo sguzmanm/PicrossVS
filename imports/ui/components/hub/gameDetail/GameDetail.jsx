@@ -62,7 +62,7 @@ class GameDetail extends Component {
           {/*TODO: Define how to have a waiting room for the game*/}
           <button
             className='game-detail__button'
-            onClick={() => console.log("Wiii I am playing")}>
+            onClick={() => this.props.history.push("/game", game._id)}>
             PLAY
           </button>
         </div>

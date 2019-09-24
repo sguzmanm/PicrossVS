@@ -7,10 +7,12 @@ import Router from "./Router.jsx";
 import "./App.scss";
 
 const App = props => {
+  console.log("App props", props);
+
   return (
     <div className="app">
       <AccountsUIWrapper />
-      <Router currentUser={props.currentUser}></Router>
+      <Router currentUser={props.currentUser} userId={props.userId}></Router>
     </div>
   );
 };

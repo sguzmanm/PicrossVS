@@ -30,7 +30,7 @@ const GamePreview = props => {
         onClick={() => props.onClick()}></div>
     );
   }
-
+  console.log(game._id);
   return (
     <div className='game-preview'>
       {/* Label with the sizeo f the board. ? if the size is unknown*/}
