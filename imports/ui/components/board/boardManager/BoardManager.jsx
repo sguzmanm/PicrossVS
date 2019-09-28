@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./BoardManager.scss";
 import Board from "../Board.jsx";
 import PropTypes from "prop-types";
 
 const BoardManager = props => {
+  // Vars setup
   const originalBoard = [
     props.board.curCells.map(function(arr) {
       return arr.slice();
@@ -14,6 +15,10 @@ const BoardManager = props => {
   const [numCorrect, setNumCorrect] = useState(0);
   const [boardState, setBoardState] = useState(0);
   const [score, setScore] = useState(500);
+
+  useEffect(() => {
+    newBoard();
+  }, board.goal);
 
   const finishBoard = () => {
     const boardTemp = [...originalBoard][0];
@@ -53,6 +58,34 @@ const BoardManager = props => {
     setBoard(...originalBoard);
     setNumCorrect(0);
     setBoardState(0);
+  };
+
+  const newBoard = () => {
+    // FIxME: Add a current user numCorrect att to avoid this loop
+    let numCorrect = 0;
+    let goal = props.board.goal;
+
+    let complete = true;
+    let tempVal = 0;
+
+    for (let i = 0; i < goal.length; i++) {
+      for (let j = 0; j < goal[0].length; j++) {
+        console.log(goal[i][j], board[i][j], goal[i][j] === board[i][j]);
+        tempVal = board[i][j];
+        if (tempVal < 0) tempVal = 0;
+        if (goal[i][j] !== tempVal) {
+          complete = false;
+          continue;
+        }
+        if (goal[i][j] === 1) {
+          numCorrect++;
+        }
+      }
+    }
+
+    console.log(numCorrect, complete);
+    setNumCorrect(numCorrect);
+    setBoardState(complete ? 1 : 0);
   };
 
   return (
