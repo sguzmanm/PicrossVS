@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
-import './BoardManager.scss';
-import Board from '../Board.jsx';
-import PropTypes from 'prop-types';
-
-//console.log(boards[2].goal.reduce((prev,cur)=> prev+cur.reduce((prev2,cur2)=>prev2+cur2,0),0))
+import React, { useState } from "react";
+import "./BoardManager.scss";
+import Board from "../Board.jsx";
+import PropTypes from "prop-types";
 
 const BoardManager = props => {
   const originalBoard = [
     props.board.curCells.map(function(arr) {
       return arr.slice();
-    }),
+    })
   ];
 
   const [board, setBoard] = useState(...originalBoard);
@@ -32,7 +30,7 @@ const BoardManager = props => {
   };
 
   const uncoverCell = (i, j, changeToState) => {
-    boardTemp = [...board];
+    let boardTemp = [...board];
     boardTemp[i][j] = changeToState;
     setBoard(boardTemp);
     if (changeToState === 1) {
@@ -45,6 +43,10 @@ const BoardManager = props => {
     } else if (changeToState === -1) {
       setScore(score - 400);
     }
+
+    if (props.updateGame) {
+      props.updateGame(board, score);
+    }
   };
 
   const resetBoard = () => {
@@ -54,18 +56,17 @@ const BoardManager = props => {
   };
 
   return (
-    <div className="boardManager">
+    <div className='boardManager'>
       <Board
         board={props.board}
         uncoverCell={(i, j, correct) => uncoverCell(i, j, correct)}
         curCells={board}
-        state={boardState}
-      ></Board>
+        state={boardState}></Board>
 
-      <p>{score}</p>
+      <p className='boardManager__score'>{score}</p>
 
       {props.isTutorial ? (
-        <button className="boardManager__button" onClick={resetBoard}>
+        <button className='boardManager__button' onClick={resetBoard}>
           Reset board
         </button>
       ) : null}
@@ -76,11 +77,13 @@ const BoardManager = props => {
 BoardManager.propTypes = {
   board: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    curCells: PropTypes.array,
+    numCorrect: PropTypes.number,
     rows: PropTypes.arrayOf(PropTypes.string).isRequired,
     columns: PropTypes.arrayOf(PropTypes.string).isRequired,
-    goal: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    goal: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
   }).isRequired,
-  isTutorial: PropTypes.bool.isRequired,
+  isTutorial: PropTypes.bool.isRequired
 };
 
 export default BoardManager;

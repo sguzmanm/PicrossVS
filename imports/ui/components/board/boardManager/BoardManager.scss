@@ -1,6 +1,11 @@
-@import '../../../css/variables.scss';
+@import "../../../css/variables.scss";
 
 .boardManager {
+  &__score {
+    text-align: center;
+    font-weight: bold;
+    text-shadow: black;
+  }
   &__button {
     color: white;
     background: $secondaryColor;

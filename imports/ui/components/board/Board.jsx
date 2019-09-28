@@ -3,6 +3,7 @@ import "./Board.scss";
 import PropTypes from "prop-types";
 import CellHint from "./cellHint/CellHint.jsx";
 import CellGrid from "./cellGrid/CellGrid.jsx";
+
 const Board = props => {
   let boardStyle = {
     gridTemplateColumns: `repeat(${props.board.columns.length + 1},3rem)`,
@@ -13,7 +14,7 @@ const Board = props => {
       <h2 className='board__name'>{props.board.name}</h2>
       <div className='board' style={boardStyle}>
         <div></div>
-        {props.board.columns.map((row, i) => {
+        {props.board.columns.map((_row, i) => {
           return (
             <CellHint
               i={i}

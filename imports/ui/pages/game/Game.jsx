@@ -1,5 +1,5 @@
 import React from "react";
-import GameContainer from "../../components/game/game/Game.jsx";
+import GameContainer from "../../components/game/Game.jsx";
 
 const Game = props => {
   return <GameContainer {...props} />;

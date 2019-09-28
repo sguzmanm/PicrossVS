@@ -5,12 +5,12 @@ import { PropTypes } from "prop-types";
 import "./Hub.scss";
 
 //Subcomponents
-import GameDetail from "../gameDetail/GameDetail.jsx";
-import GameList from "../gameList/GameList.jsx";
+import GameDetail from "./gameDetail/GameDetail.jsx";
+import GameList from "./gameList/GameList.jsx";
 
 // Games collections and topics
-import { activeGamesTopic } from "../../../../util/topics";
-import { Games } from "../../../../api/games";
+import { activeGamesTopic } from "../../../util/topics";
+import { Games } from "../../../api/games";
 
 const Hub = props => {
   // React state
