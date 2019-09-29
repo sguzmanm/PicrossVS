@@ -1,4 +1,36 @@
+@import "../../css/variables.scss";
+
 .game {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  &__scores {
+    display: flex;
+    width: 30vw;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: stretch;
+  }
+
+  &__text {
+    font-size: 1.5rem;
+    text-align: center;
+
+    &--color0 {
+      color: $player1Color;
+    }
+
+    &--color1 {
+      color: $player2Color;
+    }
+
+    &--color2 {
+      color: $player3Color;
+    }
+
+    &--color3 {
+      color: $player4Color;
+    }
+  }
 }

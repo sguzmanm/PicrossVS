@@ -64,12 +64,15 @@ Meteor.methods({
       throw new Meteor.Error(`There is no game with id ${id}`);
 
     let currentPlayer=game.players[playerIndex];
+
     console.log("Indexes",playerIndex,currentPlayer.user._id,user._id);
     if (currentPlayer.user._id!==user._id)
       throw new Meteor.Error(`${user.username} is not part of the game`);
 
     currentPlayer.board.curCells=board;
     currentPlayer.curScore=score;
+
+    console.log("PLAYER",currentPlayer);
 
     Games.update(id,{$set:game});
   },

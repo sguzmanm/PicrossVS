@@ -16,9 +16,39 @@ const BoardManager = props => {
   const [boardState, setBoardState] = useState(0);
   const [score, setScore] = useState(500);
 
+  const newBoard = () => {
+    // FIxME: Add a current user numCorrect att to avoid this loop
+    let numCorrect = 0;
+    let goal = props.board.goal;
+
+    let complete = true;
+    let tempVal = 0;
+
+    for (const i in goal) {
+      for (const j in goal[i]) {
+        tempVal = board[i][j];
+        if (tempVal < 0) tempVal = 0;
+        if (goal[i][j] !== tempVal) {
+          complete = false;
+          continue;
+        }
+        if (goal[i][j] === 1) {
+          numCorrect++;
+        }
+      }
+    }
+
+    console.log(numCorrect, complete);
+    setNumCorrect(numCorrect);
+    setBoardState(complete ? 1 : 0);
+    if (props.curScore) {
+      setScore(props.curScore);
+    }
+  };
+
   useEffect(() => {
     newBoard();
-  }, board.goal);
+  }, []);
 
   const finishBoard = () => {
     const boardTemp = [...originalBoard][0];
@@ -35,22 +65,26 @@ const BoardManager = props => {
   };
 
   const uncoverCell = (i, j, changeToState) => {
+    let newScore = score;
+
     let boardTemp = [...board];
     boardTemp[i][j] = changeToState;
     setBoard(boardTemp);
     if (changeToState === 1) {
-      setScore(score + 100);
+      newScore += 100;
       setNumCorrect(numCorrect + 1);
       if (numCorrect + 1 === props.board.numCorrect) {
         setBoardState(1);
         finishBoard();
       }
     } else if (changeToState === -1) {
-      setScore(score - 400);
+      newScore -= 400;
     }
 
-    if (props.updateGame) {
-      props.updateGame(board, score);
+    setScore(newScore);
+
+    if (!props.isTutorial) {
+      props.updateGame(board, newScore);
     }
   };
 
@@ -58,34 +92,6 @@ const BoardManager = props => {
     setBoard(...originalBoard);
     setNumCorrect(0);
     setBoardState(0);
-  };
-
-  const newBoard = () => {
-    // FIxME: Add a current user numCorrect att to avoid this loop
-    let numCorrect = 0;
-    let goal = props.board.goal;
-
-    let complete = true;
-    let tempVal = 0;
-
-    for (let i = 0; i < goal.length; i++) {
-      for (let j = 0; j < goal[0].length; j++) {
-        console.log(goal[i][j], board[i][j], goal[i][j] === board[i][j]);
-        tempVal = board[i][j];
-        if (tempVal < 0) tempVal = 0;
-        if (goal[i][j] !== tempVal) {
-          complete = false;
-          continue;
-        }
-        if (goal[i][j] === 1) {
-          numCorrect++;
-        }
-      }
-    }
-
-    console.log(numCorrect, complete);
-    setNumCorrect(numCorrect);
-    setBoardState(complete ? 1 : 0);
   };
 
   return (
@@ -116,7 +122,9 @@ BoardManager.propTypes = {
     columns: PropTypes.arrayOf(PropTypes.string).isRequired,
     goal: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
   }).isRequired,
-  isTutorial: PropTypes.bool.isRequired
+  isTutorial: PropTypes.bool.isRequired,
+  curScore: PropTypes.number,
+  updateGame: PropTypes.func
 };
 
 export default BoardManager;
