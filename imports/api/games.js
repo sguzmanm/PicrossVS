@@ -3,10 +3,10 @@ import { Mongo } from "meteor/mongo";
 
 
 // Game topics
-import { activeGamesTopic,gamesTopic } from "../util/topics";
+import { gamesTopic } from "../util/topics";
 
 // Game states
-import {WAITING,ACTIVE,CANCELLED,FINISHED} from "../util/gameStates";
+import {ACTIVE,CANCELLED,FINISHED} from "../util/gameStates";
 
 // DB Access
 export const Games = new Mongo.Collection("games");
@@ -17,11 +17,6 @@ import { Users } from "../api/users";
 
 
 if (Meteor.isServer) {
-  // This code only runs on the server
-  Meteor.publish(activeGamesTopic, function linksPublication() {
-    return Games.find({state:WAITING});
-  });
-
   Meteor.publish(gamesTopic, function linksPublication() {
     return Games.find({});
   });
@@ -68,10 +63,11 @@ Meteor.methods({
     if(!this.userId)
       throw new Meteor.Error("Not authorized");
     let board=findBoard(size);
-    console.log("BOARD",board);
+    if(!board)
+      return;
+
     board.curCells=setupCurCells(board.rows.length,board.columns.length);
 
-    
     let game={
       state:numWaitedUsers===1?1:0,
       numWaitedUsers:numWaitedUsers,
@@ -140,7 +136,7 @@ Meteor.methods({
     if(!game)
       throw new Meteor.Error(`There is no game with id ${id}`);
     if(game.players.some(el=>el.user._id===user._id))
-      throw new Meteor.Error(`${user.username} is already part of the game`);
+      return;
     // Add user
     
     let board=game.players[0].board;

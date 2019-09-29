@@ -9,8 +9,9 @@ import GameDetail from "./gameDetail/GameDetail.jsx";
 import GameList from "./gameList/GameList.jsx";
 
 // Games collections and topics
-import { activeGamesTopic } from "../../../util/topics";
+import { gamesTopic } from "../../../util/topics";
 import { Games } from "../../../api/games";
+import { WAITING } from "../../../util/gameStates";
 
 const Hub = props => {
   // React state
@@ -40,9 +41,9 @@ const Hub = props => {
 
 // Export with props from backend
 const HubContainer = withTracker(() => {
-  Meteor.subscribe(activeGamesTopic);
+  Meteor.subscribe(gamesTopic);
   return {
-    activeGames: Games.find({}).fetch()
+    activeGames: Games.find({ state: WAITING }).fetch()
   };
 })(Hub);
 
