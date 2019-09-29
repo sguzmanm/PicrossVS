@@ -41,7 +41,6 @@ const GameList = props => {
     if (e.target.value === "All") {
       setFilterCriteria("");
     } else {
-      console.log("aja");
       setFilterCriteria(e.target.value);
     }
     if (filterCriteria === "All") {
