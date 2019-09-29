@@ -47,6 +47,18 @@ function addScoreToUser(score)
   return Users.update(user._id,{$set:user});
 }
 
+function setupCurCells(rows,cols)
+{
+  let curCells=[];
+
+  for(let i=0;i<rows;i++)
+  {
+    curCells.push(new Array(cols).fill(0));
+  }
+
+  return curCells;
+}
+
 Meteor.methods({
   "games.insert"(size,numWaitedUsers){
     if(size!==5 && size !== 10 && size !== 20)
@@ -56,7 +68,10 @@ Meteor.methods({
     if(!this.userId)
       throw new Meteor.Error("Not authorized");
     let board=findBoard(size);
+    console.log("BOARD",board);
+    board.curCells=setupCurCells(board.rows.length,board.columns.length);
 
+    
     let game={
       state:numWaitedUsers===1?1:0,
       numWaitedUsers:numWaitedUsers,
@@ -129,14 +144,7 @@ Meteor.methods({
     // Add user
     
     let board=game.players[0].board;
-    board.curCells=[];
-
-    let rows=board.rows.length;
-    let cols=board.columns.length;
-    for(let i=0;i<rows;i++)
-    {
-      board.curCells.push(new Array(cols).fill(0));
-    }
+    board.curCells=setupCurCells(board.rows.length,board.columns.length);
 
     game.players.push({
       user:user,

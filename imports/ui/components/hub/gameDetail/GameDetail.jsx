@@ -118,7 +118,7 @@ class GameDetail extends Component {
             onChange={this.updateSize}>
             {sizeOptions}
           </select>
-          <h4>Number of players</h4>
+          <p className='game-detail__text'>Number of players</p>
           <div className='game-detail__board-list'>{numUserOptions}</div>
         </div>
 

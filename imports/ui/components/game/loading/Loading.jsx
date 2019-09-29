@@ -57,6 +57,7 @@ const Loading = props => {
           <div></div>
         </div>
         <h4>{msg}</h4>
+        <h4>Current players</h4>
         {users}
         {showButton ? (
           <button onClick={() => abandonGame(game._id, props.history)}>

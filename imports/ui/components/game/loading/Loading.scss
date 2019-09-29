@@ -31,14 +31,16 @@
   margin-left: auto;
 
   &__content {
-    top: 30%;
-    left: 40%;
-    position: absolute;
+    top: 50%;
+    left: 50%;
+    position: fixed;
     height: auto;
     margin: auto;
+    transform: translate(-50%, -50%);
 
     display: flex;
     flex-direction: column;
+    align-items: center;
     align-content: center;
     justify-content: center;
     text-align: center;

@@ -12,12 +12,6 @@ import { gamesTopic } from "../../../util/topics";
 import { Games } from "../../../api/games";
 import { FINISHED } from "../../../util/gameStates";
 
-const isLoading = game => {
-  if (!game) return true;
-  if (game.players.length !== game.numWaitedUsers) return true;
-  return false;
-};
-
 const Game = props => {
   const [show, setShow] = useState(false);
 
@@ -35,8 +29,20 @@ const Game = props => {
     props.history.push("/hub");
   };
 
+  const getCurrentPlayer = () => {
+    let game = props.currentGame;
+
+    if (!game) return -1;
+    if (game.players.length !== game.numWaitedUsers) return -1;
+
+    return props.currentGame.players.findIndex(
+      el => el.user.username === props.currentUser.username
+    );
+  };
+
   // Loading
-  if (isLoading(props.currentGame)) {
+  let playerIndex = getCurrentPlayer();
+  if (playerIndex === -1) {
     return (
       <Loading
         currentGame={props.currentGame}
@@ -47,10 +53,6 @@ const Game = props => {
   }
 
   // Board setup
-  let playerIndex = props.currentGame.players.findIndex(
-    el => el.user.username === props.currentUser.username
-  );
-
   let currentPlayer = props.currentGame.players[playerIndex];
   let currentBoard = currentPlayer.board;
   let currentScore = currentPlayer.curScore;
