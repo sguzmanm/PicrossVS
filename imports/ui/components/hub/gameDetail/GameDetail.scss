@@ -50,6 +50,10 @@
     &--color3 {
       color: $player4Color;
     }
+
+    &--colorFinal {
+      color: $secondaryColor;
+    }
   }
 
   &__button {

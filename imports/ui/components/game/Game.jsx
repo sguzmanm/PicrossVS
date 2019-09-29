@@ -10,6 +10,7 @@ import BoardManager from "../board/boardManager/BoardManager.jsx";
 // Games collections and topics
 import { gamesTopic } from "../../../util/topics";
 import { Games } from "../../../api/games";
+import { FINISHED } from "../../../util/gameStates";
 
 const isLoading = game => {
   if (!game) return true;
@@ -28,6 +29,10 @@ const Game = props => {
   const finishGame = (playerIndex, isDropout) => {
     let currentGame = props.currentGame;
     Meteor.call("games.finish", currentGame._id, playerIndex, isDropout);
+  };
+
+  const goToHub = () => {
+    props.history.push("/hub");
   };
 
   // Loading
@@ -52,18 +57,36 @@ const Game = props => {
 
   let player = {};
   let score = 0;
+
+  let playerList = props.currentGame.players;
+
+  const isFinished = props.currentGame.state === FINISHED;
+  if (isFinished) {
+    playerList = playerList.sort((a, b) => {
+      if (a.curScore < b.curScore) return 1;
+      if (a.curScore > b.curScore) return -1;
+      return 0;
+    });
+  }
+
   // Map user scores
-  const userScores = props.currentGame.players.map((el, index) => {
-    if (index !== playerIndex) {
+  const userScores = playerList.map((el, index) => {
+    if (isFinished || index !== playerIndex) {
       player = el.user;
       score = el.curScore;
       return (
         <div className='game__scores' key={index}>
-          <p className={`game__text game__text--color${index}`}>
-            {player.username}
+          <p
+            className={`game__text game__text--color${
+              el.finished ? "Final" : index
+            }`}>
+            {index + 1}. {player.username}
           </p>
 
-          <p className={`game__text game__text--color${index}`}>
+          <p
+            className={`game__text game__text--color${
+              el.finished ? "Final" : index
+            }`}>
             {score ? score : 500}
           </p>
         </div>
@@ -106,36 +129,57 @@ const Game = props => {
     </div>
   );
 
+  let button = (
+    <div className='row'>
+      <button
+        className='game__button game__button--cancel'
+        onClick={() => setShow(true)}>
+        DROP OUT
+      </button>
+    </div>
+  );
+
+  if (isFinished) {
+    button = (
+      <div className='row'>
+        <button
+          className='game__button game__button--ok'
+          onClick={() => goToHub()}>
+          GO TO HUB
+        </button>
+      </div>
+    );
+  }
+
   // Render board
   return (
     <div className='game'>
       {show ? modal : null}
 
       <div className='row'>
-        <BoardManager
-          curScore={currentScore}
-          board={currentBoard}
-          isTutorial={false}
-          updateGame={(board, score) => updateGame(playerIndex, board, score)}
-          finishGame={isDropout =>
-            finishGame(playerIndex, isDropout)
-          }></BoardManager>
+        {/* Show board only when they are playing*/}
+        {isFinished ? null : (
+          <BoardManager
+            curScore={currentScore}
+            board={currentBoard}
+            isTutorial={false}
+            updateGame={(board, score) => updateGame(playerIndex, board, score)}
+            finishGame={isDropout =>
+              finishGame(playerIndex, isDropout)
+            }></BoardManager>
+        )}
 
         <div>
+          {isFinished ? <h2 className='game__text'>GAME OVER</h2> : null}
           <p className='game__text'>
             {/* TODO: Add game timer*/}
             HERE SHOULD BE THE GAME TIMER
           </p>
+          {isFinished ? <h2 className='game__text'>RANKING LIST </h2> : null}
           {userScores}
-        </div>
-      </div>
 
-      <div className='row'>
-        <button
-          className='game__button game__button--cancel'
-          onClick={() => setShow(true)}>
-          DROP OUT
-        </button>
+          {button}
+        </div>
       </div>
     </div>
   );

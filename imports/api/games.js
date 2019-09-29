@@ -1,8 +1,6 @@
 import {Meteor} from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
 
-// Boards collections and topics
-import { Boards } from "../api/boards";
 
 // Game topics
 import { activeGamesTopic,gamesTopic } from "../util/topics";
@@ -12,6 +10,11 @@ import {WAITING,ACTIVE,CANCELLED,FINISHED} from "../util/gameStates";
 
 // DB Access
 export const Games = new Mongo.Collection("games");
+
+// Other collections
+import { Boards } from "../api/boards";
+import { Users } from "../api/users";
+
 
 if (Meteor.isServer) {
   // This code only runs on the server
@@ -26,10 +29,22 @@ if (Meteor.isServer) {
 
 function findBoard(size)
 {
-  let data=Boards.find({}).fetch();
-  console.log("DATA",data);
   let boards=Boards.find({ rows: { $size: size } }).fetch();
   return boards[Math.floor(Math.random()*boards.length)];
+}
+
+function addScoreToUser(score)
+{
+  if(score<0)
+    score=0;
+    
+  let user=Meteor.user();
+  if(!user.score)
+    user.score=0;
+
+  user.score+=score;
+      
+  return Users.update(user._id,{$set:user});
 }
 
 Meteor.methods({
@@ -41,7 +56,7 @@ Meteor.methods({
     if(!this.userId)
       throw new Meteor.Error("Not authorized");
     let board=findBoard(size);
-    console.log("Random board",board);
+
     let game={
       state:numWaitedUsers===1?1:0,
       numWaitedUsers:numWaitedUsers,
@@ -66,22 +81,19 @@ Meteor.methods({
 
     let currentPlayer=game.players[playerIndex];
 
-    console.log("Indexes",playerIndex,currentPlayer.user._id,user._id);
     if (currentPlayer.user._id!==user._id)
       throw new Meteor.Error(`${user.username} is not part of the game`);
 
     currentPlayer.board.curCells=board;
     currentPlayer.curScore=score;
 
-    console.log("PLAYER",currentPlayer);
-
     Games.update(id,{$set:game});
   },
   "games.finish"(id,playerIndex,isDropout){
-    console.log("TEST");
     // Get user and game
     let user=Meteor.user();
     let game=Games.find({_id:id}).fetch()[0];
+
     // Make validations
     if(!game)
       throw new Meteor.Error(`There is no game with id ${id}`);
@@ -90,16 +102,20 @@ Meteor.methods({
     if (currentPlayer.user._id!==user._id)
       throw new Meteor.Error(`${user.username} is not part of the game`);
 
+    // Setup finished states
     game.numFinished++;
     if(game.numFinished===game.numWaitedUsers)
+    {
       game.state=FINISHED;
+    }
 
     let bonus=isDropout?-2000:500-(game.numFinished*100);
     currentPlayer.curScore+=bonus;
+    currentPlayer.finished=true;
 
-    console.log("BONuS",currentPlayer.curScore,bonus);
-    console.log("GAME",game);
     Games.update(id,{$set:game});
+
+    addScoreToUser(currentPlayer.curScore);
   },
   "games.addUser"(id){
     // Get user and game
@@ -125,7 +141,8 @@ Meteor.methods({
     game.players.push({
       user:user,
       board:board,
-      curScore:0
+      curScore:0,
+      finished:false
     });
 
     // Start game if everything is setup

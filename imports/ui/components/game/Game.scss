@@ -63,16 +63,18 @@
 
 .game {
   display: flex;
+  height: 80vh;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
   align-items: center;
 
   &__button {
     background-color: transparent;
     align-self: center;
-    font-size: 2rem;
-    padding: 1rem 3rem;
-    margin: 0 1rem;
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    margin: 1rem;
     cursor: pointer;
 
     &--cancel {
