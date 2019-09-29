@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
@@ -18,13 +18,20 @@ const isLoading = game => {
 };
 
 const Game = props => {
+  const [show, setShow] = useState(false);
+
   const updateGame = (playerIndex, board, score) => {
-    console.log("UPDATE");
     let currentGame = props.currentGame;
     Meteor.call("games.update", currentGame._id, playerIndex, board, score);
   };
 
-  if (isLoading(props.currentGame))
+  const finishGame = (playerIndex, isDropout) => {
+    let currentGame = props.currentGame;
+    Meteor.call("games.finish", currentGame._id, playerIndex, isDropout);
+  };
+
+  // Loading
+  if (isLoading(props.currentGame)) {
     return (
       <Loading
         currentGame={props.currentGame}
@@ -32,7 +39,9 @@ const Game = props => {
         history={props.history}
       />
     );
+  }
 
+  // Board setup
   let playerIndex = props.currentGame.players.findIndex(
     el => el.user.username === props.currentUser.username
   );
@@ -43,7 +52,8 @@ const Game = props => {
 
   let player = {};
   let score = 0;
-  let userScores = props.currentGame.players.map((el, index) => {
+  // Map user scores
+  const userScores = props.currentGame.players.map((el, index) => {
     if (index !== playerIndex) {
       player = el.user;
       score = el.curScore;
@@ -63,22 +73,69 @@ const Game = props => {
     return null;
   });
 
+  const modal = (
+    <div className='modal'>
+      <div className='modal__backdrop' onClick={() => setShow(false)}></div>
+      <div className='modal__body'>
+        <h4 className='modal__title'>Don´t be a dropout</h4>
+        <img
+          className='modal__close'
+          alt='Close icon'
+          src={"/icons/close.svg"}
+        />
+        <div className='modal__content'>
+          Are you sure you wanna leave the game? You´ll be punished by losing
+          2000 points :(
+        </div>
+        <div className='modal__footer'>
+          <button
+            className='game__button game__button--cancel'
+            onClick={() => setShow(false)}>
+            NO
+          </button>
+          <button
+            className='game__button game__button--ok'
+            onClick={() => {
+              setShow(false);
+              finishGame(playerIndex, true);
+            }}>
+            YES
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Render board
   return (
     <div className='game'>
-      <BoardManager
-        curScore={currentScore}
-        board={currentBoard}
-        isTutorial={false}
-        updateGame={(board, score) =>
-          updateGame(playerIndex, board, score)
-        }></BoardManager>
+      {show ? modal : null}
 
-      <div>
-        <p className='game__text'>
-          {/* TODO: Add game timer*/}
-          HERE SHOULD BE THE GAME TIMER
-        </p>
-        {userScores}
+      <div className='row'>
+        <BoardManager
+          curScore={currentScore}
+          board={currentBoard}
+          isTutorial={false}
+          updateGame={(board, score) => updateGame(playerIndex, board, score)}
+          finishGame={isDropout =>
+            finishGame(playerIndex, isDropout)
+          }></BoardManager>
+
+        <div>
+          <p className='game__text'>
+            {/* TODO: Add game timer*/}
+            HERE SHOULD BE THE GAME TIMER
+          </p>
+          {userScores}
+        </div>
+      </div>
+
+      <div className='row'>
+        <button
+          className='game__button game__button--cancel'
+          onClick={() => setShow(true)}>
+          DROP OUT
+        </button>
       </div>
     </div>
   );

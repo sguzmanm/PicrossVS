@@ -73,10 +73,6 @@ const BoardManager = props => {
     if (changeToState === 1) {
       newScore += 100;
       setNumCorrect(numCorrect + 1);
-      if (numCorrect + 1 === props.board.numCorrect) {
-        setBoardState(1);
-        finishBoard();
-      }
     } else if (changeToState === -1) {
       newScore -= 400;
     }
@@ -86,12 +82,21 @@ const BoardManager = props => {
     if (!props.isTutorial) {
       props.updateGame(board, newScore);
     }
+
+    if (numCorrect + 1 === props.board.numCorrect) {
+      setBoardState(1);
+      finishBoard();
+      if (!props.isTutorial) {
+        props.finishGame(false); // He won fair and square, it is not a drop out
+      }
+    }
   };
 
   const resetBoard = () => {
     setBoard(...originalBoard);
     setNumCorrect(0);
     setBoardState(0);
+    setScore(500);
   };
 
   return (
@@ -124,7 +129,8 @@ BoardManager.propTypes = {
   }).isRequired,
   isTutorial: PropTypes.bool.isRequired,
   curScore: PropTypes.number,
-  updateGame: PropTypes.func
+  updateGame: PropTypes.func,
+  finishGame: PropTypes.func
 };
 
 export default BoardManager;

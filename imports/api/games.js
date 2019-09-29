@@ -8,7 +8,7 @@ import { Boards } from "../api/boards";
 import { activeGamesTopic,gamesTopic } from "../util/topics";
 
 // Game states
-import {WAITING,ACTIVE,CANCELLED} from "../util/gameStates";
+import {WAITING,ACTIVE,CANCELLED,FINISHED} from "../util/gameStates";
 
 // DB Access
 export const Games = new Mongo.Collection("games");
@@ -45,6 +45,7 @@ Meteor.methods({
     let game={
       state:numWaitedUsers===1?1:0,
       numWaitedUsers:numWaitedUsers,
+      numFinished:0,
       players:[
         {
           user:Meteor.user(),
@@ -74,6 +75,30 @@ Meteor.methods({
 
     console.log("PLAYER",currentPlayer);
 
+    Games.update(id,{$set:game});
+  },
+  "games.finish"(id,playerIndex,isDropout){
+    console.log("TEST");
+    // Get user and game
+    let user=Meteor.user();
+    let game=Games.find({_id:id}).fetch()[0];
+    // Make validations
+    if(!game)
+      throw new Meteor.Error(`There is no game with id ${id}`);
+
+    let currentPlayer=game.players[playerIndex];
+    if (currentPlayer.user._id!==user._id)
+      throw new Meteor.Error(`${user.username} is not part of the game`);
+
+    game.numFinished++;
+    if(game.numFinished===game.numWaitedUsers)
+      game.state=FINISHED;
+
+    let bonus=isDropout?-2000:500-(game.numFinished*100);
+    currentPlayer.curScore+=bonus;
+
+    console.log("BONuS",currentPlayer.curScore,bonus);
+    console.log("GAME",game);
     Games.update(id,{$set:game});
   },
   "games.addUser"(id){

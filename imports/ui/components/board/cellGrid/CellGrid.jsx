@@ -1,14 +1,14 @@
-import React from 'react'
-import './CellGrid.scss'
-import PropTypes from 'prop-types'
-import Cell from '../cell/Cell.jsx'
+import React from "react";
+import "./CellGrid.scss";
+import PropTypes from "prop-types";
+import Cell from "../cell/Cell.jsx";
 const CellGrid = props => {
-  boardStyle = {
+  let boardStyle = {
     gridTemplateColumns: `repeat(${props.board.columns.length},3rem)`,
-    gridTemplateRows: `repeat(${props.board.rows.length},3rem)`,
-  }
+    gridTemplateRows: `repeat(${props.board.rows.length},3rem)`
+  };
 
-  containerStyle = {
+  let containerStyle = {
     width: `calc(${props.board.columns.length * 3}rem + ${(props.board.columns
       .length -
       1) *
@@ -16,11 +16,11 @@ const CellGrid = props => {
     height: `calc(${props.board.rows.length * 3}rem + ${(props.board.rows
       .length -
       1) *
-      2}px)`,
-  }
+      2}px)`
+  };
   return (
-    <div className="cellGrid__container" style={containerStyle}>
-      <div className="cellGrid" style={boardStyle}>
+    <div className='cellGrid__container' style={containerStyle}>
+      <div className='cellGrid' style={boardStyle}>
         {props.board.rows.map((row, i) => {
           return props.board.columns.map((column, j) => {
             return (
@@ -29,28 +29,27 @@ const CellGrid = props => {
                 j={j}
                 state={props.state}
                 goal={props.board.goal[i][j]}
-                key={i + '' + j}
+                key={i + "" + j}
                 uncoverCell={props.uncoverCell}
-                curCell={props.curCells[i][j]}
-              ></Cell>
-            )
-          })
+                curCell={props.curCells[i][j]}></Cell>
+            );
+          });
         })}
       </div>
     </div>
-  )
-}
+  );
+};
 
 CellGrid.propTypes = {
   board: PropTypes.shape({
     name: PropTypes.string.isRequired,
     rows: PropTypes.arrayOf(PropTypes.string).isRequired,
     columns: PropTypes.arrayOf(PropTypes.string).isRequired,
-    goal: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    goal: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
   }).isRequired,
   uncoverCell: PropTypes.func.isRequired,
   curCells: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-  state:PropTypes.number.isRequired
-}
+  state: PropTypes.number.isRequired
+};
 
-export default CellGrid
+export default CellGrid;

@@ -1,9 +1,100 @@
 @import "../../css/variables.scss";
 
-.game {
+.row {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.modal {
+  &__backdrop {
+    background-color: black;
+    opacity: 0.7;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+  }
+
+  &__body {
+    top: 50%;
+    left: 50%;
+    padding: 1rem;
+    background-color: $backgroundColor;
+    border: $borderColor 1px solid;
+    position: fixed;
+    z-index: 1;
+
+    width: 50%;
+    height: auto;
+    margin: auto;
+    transform: translate(-50%, -50%);
+  }
+
+  &__close {
+    background-color: transparent;
+    border-color: transparent;
+    position: absolute;
+    top: 0.1rem;
+    right: 0.1rem;
+    width: 3.5rem;
+    cursor: pointer;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  &__content {
+    font-size: 1.5rem;
+  }
+
+  &__footer {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__button {
+    background-color: transparent;
+    align-self: center;
+    font-size: 2rem;
+    padding: 1rem 3rem;
+    margin: 0 1rem;
+    cursor: pointer;
+
+    &--cancel {
+      color: $incorrectColor;
+      border-color: $incorrectColor;
+
+      &:hover {
+        background-color: $incorrectColor;
+        color: white;
+      }
+    }
+
+    &--ok {
+      color: $secondaryColor;
+      border-color: $secondaryColor;
+
+      &:hover {
+        background-color: $secondaryColor;
+        color: white;
+      }
+    }
+  }
 
   &__scores {
     display: flex;
