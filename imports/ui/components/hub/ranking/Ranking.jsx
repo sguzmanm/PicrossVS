@@ -8,7 +8,7 @@ const Ranking = props => {
         return userB.score - userA.score
     }
     const sortedUsers = () => {
-        return props.users.sort(compareUsers)
+        return props.users.sort(compareUsers) || []
     }
     return (
         <div className='ranking'>

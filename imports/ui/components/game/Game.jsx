@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import "./Game.scss";
 
 import Loading from "./loading/Loading.jsx";
+import Timer from "./timer/Timer.jsx";
 import BoardManager from "../board/boardManager/BoardManager.jsx";
 
 // Games collections and topics
@@ -33,6 +34,8 @@ const Game = props => {
     let game = props.currentGame;
 
     if (!game) return -1;
+
+    console.log(game)
     if (game.players.length !== game.numWaitedUsers) return -1;
 
     return props.currentGame.players.findIndex(
@@ -63,6 +66,8 @@ const Game = props => {
   let playerList = props.currentGame.players;
 
   const isFinished = props.currentGame.state === FINISHED;
+
+  console.log(isFinished)
   if (isFinished) {
     playerList = playerList.sort((a, b) => {
       if (a.curScore < b.curScore) return 1;
@@ -81,15 +86,15 @@ const Game = props => {
           <p
             className={`game__text game__text--color${
               el.finished ? "Final" : index
-            }`}>
+              }`}>
             {index + 1}. {player.username}
           </p>
 
           <p
             className={`game__text game__text--color${
               el.finished ? "Final" : index
-            }`}>
-            {score ? score : 500}
+              }`}>
+            {score ? score : 0}
           </p>
         </div>
       );
@@ -173,13 +178,11 @@ const Game = props => {
 
         <div>
           {isFinished ? <h2 className='game__text'>GAME OVER</h2> : null}
-          <p className='game__text'>
-            {/* TODO: Add game timer*/}
-            HERE SHOULD BE THE GAME TIMER
-          </p>
+          {!isFinished ? <div className='game__text'>
+            <Timer size={currentBoard.rows.length}></Timer>
+          </div> : null}
           {isFinished ? <h2 className='game__text'>RANKING LIST </h2> : null}
           {userScores}
-
           {button}
         </div>
       </div>

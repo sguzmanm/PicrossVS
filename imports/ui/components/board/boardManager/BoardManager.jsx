@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 const BoardManager = props => {
   // Vars setup
   const originalBoard = [
-    props.board.curCells.map(function(arr) {
+    props.board.curCells.map(function (arr) {
       return arr.slice();
     })
   ];
@@ -14,7 +14,7 @@ const BoardManager = props => {
   const [board, setBoard] = useState(...originalBoard);
   const [numCorrect, setNumCorrect] = useState(0);
   const [boardState, setBoardState] = useState(0);
-  const [score, setScore] = useState(500);
+  const [score, setScore] = useState(0);
 
   const newBoard = () => {
     // FIxME: Add a current user numCorrect att to avoid this loop
@@ -38,7 +38,6 @@ const BoardManager = props => {
       }
     }
 
-    console.log(numCorrect, complete);
     setNumCorrect(numCorrect);
     setBoardState(complete ? 1 : 0);
     if (props.curScore) {
@@ -96,7 +95,7 @@ const BoardManager = props => {
     setBoard(...originalBoard);
     setNumCorrect(0);
     setBoardState(0);
-    setScore(500);
+    setScore(0);
   };
 
   return (
@@ -107,7 +106,7 @@ const BoardManager = props => {
         curCells={board}
         state={boardState}></Board>
 
-      <p className='boardManager__score'>{score}</p>
+      <p className='boardManager__score'>Puntaje: {score}</p>
 
       {props.isTutorial ? (
         <button className='boardManager__button' onClick={resetBoard}>

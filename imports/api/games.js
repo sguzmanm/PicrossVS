@@ -27,11 +27,15 @@ function findBoard(size) {
   return boards[Math.floor(Math.random() * boards.length)];
 }
 
-function addScoreToUser(score) {
+function addScoreToUser(scoreT) {
 
-  let user = Meteor.user();
+  const user = Meteor.user();
 
-  return Users.update(user._id, { $inc: { "score": score } });
+  const curUser = Users.findOne({ _id: user._id });
+
+  const score = Math.max(0, curUser.score + scoreT)
+
+  return Users.update(user._id, { $set: { "score": score } });
 }
 
 function setupCurCells(rows, cols) {
@@ -66,7 +70,7 @@ Meteor.methods({
         {
           user: Meteor.user(),
           board: board,
-          curScore: 500,
+          curScore: 0,
           finished: false
         }
       ],
@@ -137,7 +141,7 @@ Meteor.methods({
     game.players.push({
       user: user,
       board: board,
-      curScore: 500,
+      curScore: 0,
       finished: false
     });
 
