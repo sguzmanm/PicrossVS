@@ -34,7 +34,7 @@ const Timer = (props) => {
         case 20: timeout = 30; break;
     }
 
-    return (<p className="timer">Segundos restantes: {timeout * 60 - count}</p>)
+    return (<p className="timer">Seconds remaining: {timeout * 60 - count}</p>)
 }
 
 

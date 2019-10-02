@@ -82,7 +82,7 @@ const BoardManager = props => {
       props.updateGame(board, newScore);
     }
 
-    if (numCorrect + 1 === props.board.numCorrect) {
+    if (changeToState === 1 && numCorrect + 1 === props.board.numCorrect) {
       setBoardState(1);
       finishBoard();
       if (!props.isTutorial) {
@@ -106,7 +106,7 @@ const BoardManager = props => {
         curCells={board}
         state={boardState}></Board>
 
-      <p className='boardManager__score'>Puntaje: {score}</p>
+      <p className='boardManager__score'>Score: {score}</p>
 
       {props.isTutorial ? (
         <button className='boardManager__button' onClick={resetBoard}>
