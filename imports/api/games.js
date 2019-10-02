@@ -113,7 +113,7 @@ Meteor.methods({
 
     let bonus = 500 - (game.numFinished * 100);
     currentPlayer.curScore += bonus;
-    if (isDropout) currentPlayer.curScore = -2000
+    if (isDropout) currentPlayer.curScore = -2000;
     currentPlayer.finished = true;
 
     Games.update(id, { $set: game });
