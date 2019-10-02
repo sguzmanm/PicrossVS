@@ -7,9 +7,7 @@ const AccountsUIWrapper = () => {
   const containerRef = useRef(null);
   useEffect(() => {
     setView(Blaze.render(Template.loginButtons, containerRef.current));
-    console.log("VIEW", view);
     return () => {
-      console.log("REMOVE VIEW", view);
       Blaze.remove(view);
     };
   }, []);

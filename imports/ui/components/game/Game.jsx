@@ -35,7 +35,6 @@ const Game = props => {
 
     if (!game) return -1;
 
-    console.log(game)
     if (game.players.length !== game.numWaitedUsers) return -1;
 
     return props.currentGame.players.findIndex(
@@ -67,7 +66,6 @@ const Game = props => {
 
   const isFinished = props.currentGame.state === FINISHED;
 
-  console.log(isFinished)
   if (isFinished) {
     playerList = playerList.sort((a, b) => {
       if (a.curScore < b.curScore) return 1;
@@ -175,7 +173,6 @@ const Game = props => {
               finishGame(playerIndex, isDropout)
             }></BoardManager>
         )}
-
         <div>
           {isFinished ? <h2 className='game__text'>GAME OVER</h2> : null}
           {!isFinished ? <div className='game__text'>
