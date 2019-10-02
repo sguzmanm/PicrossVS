@@ -29,9 +29,9 @@ const Timer = (props) => {
 
     let timeout = 2;
     switch (props.rowsLength) {
-        case 10: timeout = 5; break;
-        case 15: timeout = 12; break;
-        case 20: timeout = 20; break;
+        case 10: timeout = 10; break;
+        case 15: timeout = 20; break;
+        case 20: timeout = 30; break;
     }
 
     return (<p className="timer">Segundos restantes: {timeout * 60 - count}</p>)

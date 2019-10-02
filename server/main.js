@@ -31,11 +31,11 @@ const addTimeoutToGame = (id, fields) => {
     if (fields.state !== ACTIVE) return
     const game = Games.findOne({ _id: id });
     const rowsLength = game.players[0].board.rows.length
-    let timeout = 0.3
+    let timeout = 2
     switch (rowsLength) {
-        case 10: timeout = 5; break;
-        case 15: timeout = 12; break;
-        case 20: timeout = 20; break;
+        case 10: timeout = 10; break;
+        case 15: timeout = 20; break;
+        case 20: timeout = 30; break;
     }
     setTimeout(() => closeGame(id, fields), timeout * 60 * 1000)
 }
