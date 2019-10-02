@@ -28,7 +28,7 @@ const Timer = (props) => {
     });
 
     let timeout = 2;
-    switch (props.rowsLength) {
+    switch (props.size) {
         case 10: timeout = 10; break;
         case 15: timeout = 20; break;
         case 20: timeout = 30; break;
