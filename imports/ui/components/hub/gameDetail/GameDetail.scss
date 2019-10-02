@@ -2,11 +2,10 @@
 
 .game-detail {
   text-align: left;
-  width: 50%;
-  height: 80vh;
   border: 0.1rem solid $borderColor;
   padding: 1rem;
   display: flex;
+  margin: 0 1rem;
 
   flex-direction: column;
   justify-content: space-between;
@@ -20,15 +19,14 @@
     background-color: $backgroundColor;
     border: 0.1rem solid $borderColor;
     font-size: 1.5rem;
-    margin: 3rem 2rem;
+    margin: 1rem 2rem;
     font-weight: bold;
     padding: 0.5rem 1.2rem;
 
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: url("/icons/dropdown.svg") right / 1.5rem no-repeat
-      $backgroundColor;
+    background: url("/icons/dropdown.svg") right / 1.5rem no-repeat $backgroundColor;
   }
 
   &__title,
@@ -70,7 +68,7 @@
     font-size: 2rem;
     padding: 1rem 3rem;
     cursor: pointer;
-
+    margin-top: 1rem;
     &:hover {
       background-color: $textColor;
       color: white;
@@ -79,7 +77,9 @@
 
   &__board-list {
     display: grid;
-    grid-template-columns: repeat(5, 6rem);
+    grid-template-columns: repeat(auto-fit, 6rem);
     grid-gap: 1rem;
+    justify-content: center;
+    width: 100%;
   }
 }

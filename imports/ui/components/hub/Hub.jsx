@@ -7,10 +7,12 @@ import "./Hub.scss";
 //Subcomponents
 import GameDetail from "./gameDetail/GameDetail.jsx";
 import GameList from "./gameList/GameList.jsx";
+import Ranking from "./ranking/Ranking.jsx";
 
 // Games collections and topics
-import { gamesTopic } from "../../../util/topics";
+import { gamesTopic, usersTopic } from "../../../util/topics";
 import { Games } from "../../../api/games";
+import { Users } from "../../../api/users";
 import { WAITING } from "../../../util/gameStates";
 
 const Hub = props => {
@@ -29,6 +31,7 @@ const Hub = props => {
         currentGameId={currentGame ? currentGame._id : -1}
         changeCurrentGameId={setCurrentGameId}
       />
+      <Ranking users={props.users}></Ranking>
       <GameDetail
         history={props.history}
         currentGame={currentGame}
@@ -42,8 +45,10 @@ const Hub = props => {
 // Export with props from backend
 const HubContainer = withTracker(() => {
   Meteor.subscribe(gamesTopic);
+  Meteor.subscribe(usersTopic);
   return {
-    activeGames: Games.find({ state: WAITING }).fetch()
+    activeGames: Games.find({ state: WAITING }).fetch(),
+    users: Users.find().fetch(),
   };
 })(Hub);
 
@@ -51,5 +56,6 @@ export default HubContainer;
 
 Hub.propTypes = {
   history: PropTypes.any,
+  users: PropTypes.arrayOf(PropTypes.object),
   activeGames: PropTypes.arrayOf(PropTypes.object)
 };

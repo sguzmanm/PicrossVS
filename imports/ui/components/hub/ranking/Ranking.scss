@@ -1,0 +1,16 @@
+@import "../../../css/variables.scss";
+
+.ranking {
+  padding: 1rem;
+  border: 0.1rem solid $borderColor;
+
+  &__user {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    color: $mainColor;
+    margin-top: 0;
+  }
+}
