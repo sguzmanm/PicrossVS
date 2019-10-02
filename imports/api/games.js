@@ -28,16 +28,10 @@ function findBoard(size) {
 }
 
 function addScoreToUser(score) {
-  if (score < 0)
-    score = 0;
 
   let user = Meteor.user();
-  if (!user.score)
-    user.score = 0;
 
-  user.score += score;
-
-  return Users.update(user._id, { $set: user });
+  return Users.update(user._id, { $inc: { "score": score } });
 }
 
 function setupCurCells(rows, cols) {
@@ -117,8 +111,9 @@ Meteor.methods({
       game.state = FINISHED;
     }
 
-    let bonus = isDropout ? -2000 : 500 - (game.numFinished * 100);
+    let bonus = 500 - (game.numFinished * 100);
     currentPlayer.curScore += bonus;
+    if (isDropout) currentPlayer.curScore = -2000
     currentPlayer.finished = true;
 
     Games.update(id, { $set: game });
