@@ -33,7 +33,7 @@ function addScoreToUser(scoreT) {
 
   const curUser = Users.findOne({ _id: user._id });
 
-  const score = Math.max(0, curUser.score + scoreT)
+  const score = Math.max(0, curUser.score + scoreT);
 
   return Users.update(user._id, { $set: { "score": score } });
 }
