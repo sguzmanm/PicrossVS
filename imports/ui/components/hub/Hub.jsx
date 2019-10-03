@@ -17,7 +17,7 @@ import { WAITING } from "../../../util/gameStates";
 
 const Hub = props => {
   // React state
-  const [currentGameId, setCurrentGameId] = useState(-1);
+  const [currentGameId, setCurrentGameId] = useState("");
   const [addGame, setAddGame] = useState(false);
   let currentGame = props.activeGames.find(el => el._id === currentGameId);
 
@@ -28,7 +28,7 @@ const Hub = props => {
         finishAddGame={() => setAddGame(false)}
         setAddGame={() => setAddGame(true)}
         activeGames={props.activeGames}
-        currentGameId={currentGame ? currentGame._id : -1}
+        currentGameId={currentGame ? currentGame._id : ""}
         changeCurrentGameId={setCurrentGameId}
       />
       <Ranking users={props.users}></Ranking>
@@ -48,7 +48,7 @@ const HubContainer = withTracker(() => {
   Meteor.subscribe(usersTopic);
   return {
     activeGames: Games.find({ state: WAITING }).fetch(),
-    users: Users.find().fetch(),
+    users: Users.find().fetch()
   };
 })(Hub);
 

@@ -27,7 +27,7 @@ const GameList = props => {
         <GamePreview
           key={el._id}
           game={el}
-          currentGameId={props.addGame ? -1 : props.currentGameId}
+          currentGameId={props.addGame ? "" : props.currentGameId}
           onClick={() => {
             props.changeCurrentGameId(el._id);
             props.finishAddGame();
@@ -87,7 +87,7 @@ const GameList = props => {
 export default GameList;
 
 GameList.propTypes = {
-  currentGameId: PropTypes.number,
+  currentGameId: PropTypes.string,
   activeGames: PropTypes.arrayOf(PropTypes.object),
   changeCurrentGameId: PropTypes.func,
   addGame: PropTypes.bool,
