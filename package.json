@@ -2,7 +2,7 @@
   "name": "picross-vs",
   "private": true,
   "scripts": {
-    "start": "meteor run",
+    "start": "meteor run a",
     "dev": "env-cmd meteor run",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
