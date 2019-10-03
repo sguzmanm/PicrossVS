@@ -109,3 +109,6 @@ mongoimport --uri "mongodb+srv://picrossVS:<Password url encoded>@picrossvs-xa3g
 ## Meteor packages
 
 - fourseven:scss
+- accounts-ui
+- accounts-password
+- react-meteor-data
