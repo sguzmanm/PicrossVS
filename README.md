@@ -76,7 +76,7 @@ Set the environamental variable of ROOT_URL to the url with the heroku page depl
 
 ### Match
 
-![PicrossVS match](./screenshot.PNG)
+![PicrossVS match](./screenshot.png)
 
 ## License
 
