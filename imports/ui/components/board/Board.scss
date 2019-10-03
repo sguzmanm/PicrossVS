@@ -1,11 +1,12 @@
-@import '../../css/variables.scss';
+@import "../../css/variables.scss";
 
 .board {
   display: grid;
   grid-gap: 2px;
+
   margin-right: 3rem;
 
-  &__name{
+  &__name {
     color: $secondaryColor;
     text-align: center;
   }

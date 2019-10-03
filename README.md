@@ -14,11 +14,11 @@ Competitive multiplayer version of the fun mind-daunting game Picross. Challenge
 
 ## Links
 
-**Deployed at:**
+**Deployed at: https://picross-vs.herokuapp.com/**
 
 ## Description
 
--- Insert description after finishing the app
+PicrossVS allows people to challenge random players in a competitive battle to solve a Picross Board. Boards can be selected in sizes of 5x5,10x10,15x15 and 20x20 tiles per board. Also, people can choose to create a game for 1 up to 4 people at the same time. Each people gain points while they complete the board. But be careful, one mistake and you will lose points. There are extra points accounting for order of completion. If someone leaves a match, they will be penalized with a lot of points!
 
 ## Objective
 
@@ -33,35 +33,50 @@ This project was developed using:
 - **React JS**: A Front End library useful for creating components. https://reactjs.org/
 - **Node JS**: A javascript environment which allows to create a web server with javascript. https://nodejs.org
 
-_Some extra dependencies were included in the project. Each can be seen in the backend or frontend folders or in the package.json files in the respective folders._
-
-_The application is deployed in https://heroku.com/_
 
 ## Instructions to execute
-
 ### Requisites
 
-- **Node JS**
-- **Heroku CLI (Optional, for replicating our deployment only)**
+
+- Install nodejs **https://nodejs.org/**
+- Install meteor **https://www.meteor.com/install**
+- Install Heroku CLI(Optional, for replicating our deployment only) **https://devcenter.heroku.com/articles/heroku-cli**
+
+Clone this project
+```
+git clone https://github.com/sguzmanm/PicrossVS/
+```
+Install dependencies
+```
+cd PicrossVS
+```
 
 Verify that nodejs is installed by running "node -v" on terminal or cmd. It can be downloaded in https://nodejs.org/ (versión LTS)
-
-### Steps to run develop version
-
-_--NEED TO CHECK AFTER DEV_
+```
+meteor npm install
+```
+Create a .env file in the main folder with the variable MONGO_URL pointing to a mongoDB hosting page of your preference.
+Run project
+```
+npm run dev
+```
 
 ### Steps to deploy production version into Heroku
 
 It is assumed that the Heroku CLI is setup in your computer for this and connected to a project. If you are not sure or do not have this, please visit https://devcenter.heroku.com/articles/getting-started-with-nodejs.
 
-_--NEED TO CHECK AFTER DEV_
+Setup env vars in heroku of the.env file, by [dashboard](https://dashboard.heroku.com/) or CLI with:
+
+```
+heroku config:set <KEY>=<value>
+```
+Set the environamental variable of ROOT_URL to the url with the heroku page deployed and MONGO_URL with the url of your MongoDB instance
 
 ## Screenshots
 
-### Main Menu
+### Match
 
-_-- NEED TO CHECK AFTER DEV_
-![Picross VS SS](./readme/ss.PNG)
+![PicrossVS match](./screenshot.png)
 
 ## License
 
@@ -94,3 +109,6 @@ mongoimport --uri "mongodb+srv://picrossVS:<Password url encoded>@picrossvs-xa3g
 ## Meteor packages
 
 - fourseven:scss
+- accounts-ui
+- accounts-password
+- react-meteor-data
