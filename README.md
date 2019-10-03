@@ -50,6 +50,8 @@ Install dependencies
 ```
 cd PicrossVS
 ```
+
+Verify that nodejs is installed by running "node -v" on terminal or cmd. It can be downloaded in https://nodejs.org/ (versión LTS)
 ```
 meteor npm install
 ```
@@ -58,8 +60,6 @@ Run project
 ```
 npm run dev
 ```
-
-Verify that nodejs is installed by running "node -v" on terminal or cmd. It can be downloaded in https://nodejs.org/ (versión LTS)
 
 ### Steps to deploy production version into Heroku
 
@@ -71,12 +71,12 @@ Setup env vars in heroku of the.env file, by [dashboard](https://dashboard.herok
 heroku config:set <KEY>=<value>
 ```
 Set the environamental variable of ROOT_URL to the url with the heroku page deployed and MONGO_URL with the url of your MongoDB instance
+
 ## Screenshots
 
-### Main Menu
+### Match
 
-_-- NEED TO CHECK AFTER DEV_
-![Picross VS SS](./readme/ss.PNG)
+![PicrossVS match](./screenshot.PNG)
 
 ## License
 
