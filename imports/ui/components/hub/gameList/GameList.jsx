@@ -49,7 +49,7 @@ const GameList = props => {
   };
 
   return (
-    <div className='game-list'>
+    <div className={`game-list ${props.addGame ? "" : "game-list--inactive"}`}>
       <h2>Available games</h2>
       <div className='game-list__grid'>
         <div className='game-list__add'>

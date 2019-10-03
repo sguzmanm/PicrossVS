@@ -1,6 +1,10 @@
 @import "../../../css/variables.scss";
 
 .game-list {
+  &--inactive {
+    width: 50vw;
+  }
+
   &__filter {
     background-color: transparent;
   }
@@ -16,7 +20,8 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: url("/icons/dropdown.svg") right / 1.5rem no-repeat $backgroundColor;
+    background: url("/icons/dropdown.svg") right / 1.5rem no-repeat
+      $backgroundColor;
   }
 
   &__text {
