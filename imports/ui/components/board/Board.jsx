@@ -5,7 +5,7 @@ import CellHint from "./cellHint/CellHint.jsx";
 import CellGrid from "./cellGrid/CellGrid.jsx";
 
 const Board = props => {
-  let size = 3.5 - 0.1 * props.board.columns.length
+  let size = 3.5 - 0.1 * props.board.columns.length;
   let boardStyle = {
     gridTemplateColumns: `repeat(${props.board.columns.length + 1},${size}rem)`,
     gridTemplateRows: `4rem repeat(${props.board.rows.length},${size}rem)`

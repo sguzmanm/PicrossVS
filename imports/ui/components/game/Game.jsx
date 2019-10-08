@@ -84,14 +84,14 @@ const Game = props => {
           <p
             className={`game__text game__text--color${
               el.finished ? "Final" : index
-              }`}>
+            }`}>
             {index + 1}. {player.username}
           </p>
 
           <p
             className={`game__text game__text--color${
               el.finished ? "Final" : index
-              }`}>
+            }`}>
             {score ? score : 0}
           </p>
         </div>
@@ -110,6 +110,7 @@ const Game = props => {
           className='modal__close'
           alt='Close icon'
           src={"/icons/close.svg"}
+          onClick={() => setShow(false)}
         />
         <div className='modal__content'>
           Are you sure you wanna leave the game? You´ll be punished by losing
@@ -175,9 +176,11 @@ const Game = props => {
         )}
         <div>
           {isFinished ? <h2 className='game__text'>GAME OVER</h2> : null}
-          {!isFinished ? <div className='game__text'>
-            <Timer size={currentBoard.rows.length}></Timer>
-          </div> : null}
+          {!isFinished ? (
+            <div className='game__text'>
+              <Timer size={currentBoard.rows.length}></Timer>
+            </div>
+          ) : null}
           {isFinished ? <h2 className='game__text'>RANKING LIST </h2> : null}
           {userScores}
           {button}

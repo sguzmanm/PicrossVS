@@ -28,12 +28,11 @@ function findBoard(size) {
 }
 
 function addScoreToUser(scoreT) {
-
   const user = Meteor.user();
-
   const curUser = Users.findOne({ _id: user._id });
 
-  const score = Math.max(0, curUser.score + scoreT);
+  let score=curUser.score?curUser.score:0; // When the user is created by Meteor, the score is undefined
+  score = Math.max(0, score+scoreT);
 
   return Users.update(user._id, { $set: { "score": score } });
 }
