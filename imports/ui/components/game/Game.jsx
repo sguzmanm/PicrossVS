@@ -8,14 +8,15 @@ import Loading from "./loading/Loading.jsx";
 import Timer from "./timer/Timer.jsx";
 import BoardManager from "../board/boardManager/BoardManager.jsx";
 
+import { Redirect } from "react-router-dom";
+
 // Games collections and topics
 import { gamesTopic } from "../../../util/topics";
 import { Games } from "../../../api/games";
-import { FINISHED } from "../../../util/gameStates";
+import { FINISHED, CANCELLED } from "../../../util/gameStates";
 
 const Game = props => {
   const [show, setShow] = useState(false);
-
   const updateGame = (playerIndex, board, score) => {
     let currentGame = props.currentGame;
     Meteor.call("games.update", currentGame._id, playerIndex, board, score);
@@ -24,6 +25,7 @@ const Game = props => {
   const finishGame = (playerIndex, isDropout) => {
     let currentGame = props.currentGame;
     Meteor.call("games.finish", currentGame._id, playerIndex, isDropout);
+    if (isDropout) goToHub();
   };
 
   const goToHub = () => {
@@ -56,6 +58,11 @@ const Game = props => {
 
   // Board setup
   let currentPlayer = props.currentGame.players[playerIndex];
+  if (currentPlayer.state === CANCELLED) {
+    return <Redirect path='/hub' />;
+  }
+
+  // Other current attributes
   let currentBoard = currentPlayer.board;
   let currentScore = currentPlayer.curScore;
 
@@ -74,6 +81,8 @@ const Game = props => {
     });
   }
 
+  if (props.currentGame.state === CANCELLED) goToHub();
+
   // Map user scores
   const userScores = playerList.map((el, index) => {
     if (isFinished || index !== playerIndex) {
@@ -83,14 +92,14 @@ const Game = props => {
         <div className='game__scores' key={index}>
           <p
             className={`game__text game__text--color${
-              el.finished ? "Final" : index
+              el.state === FINISHED ? "Final" : index
             }`}>
             {index + 1}. {player.username}
           </p>
 
           <p
             className={`game__text game__text--color${
-              el.finished ? "Final" : index
+              el.state === FINISHED ? "Final" : index
             }`}>
             {score ? score : 0}
           </p>

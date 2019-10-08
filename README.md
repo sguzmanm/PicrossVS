@@ -134,7 +134,7 @@ Boards:{
 ```
 Game: {
     state:0/1/2/3 (WaitingForPlayers,Active,Finished,Cancelled),
-    players:[]={user,boards:Board, curScore,finished},
+    players:[]={user,boards:Board, curScore,state},
     numWaitedUsers (Num of users the game should wait for),
     numFinished (Num of users that have finished the board),
     board: Base board for the game

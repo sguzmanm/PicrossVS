@@ -70,7 +70,7 @@ Meteor.methods({
           user: Meteor.user(),
           board: board,
           curScore: 0,
-          finished: false
+          state: ACTIVE
         }
       ],
       createdAt: new Date(),
@@ -116,8 +116,13 @@ Meteor.methods({
 
     let bonus = 500 - (game.numFinished * 100);
     currentPlayer.curScore += bonus;
-    if (isDropout) currentPlayer.curScore = -2000;
-    currentPlayer.finished = true;
+    currentPlayer.state = FINISHED;
+
+    if (isDropout) 
+    {
+      currentPlayer.curScore = -2000;
+      currentPlayer.state = CANCELLED;
+    }
 
     Games.update(id, { $set: game });
 
@@ -141,7 +146,7 @@ Meteor.methods({
       user: user,
       board: board,
       curScore: 0,
-      finished: false
+      state:ACTIVE
     });
 
     // Start game if everything is setup
