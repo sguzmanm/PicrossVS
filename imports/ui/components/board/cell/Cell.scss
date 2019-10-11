@@ -1,9 +1,10 @@
-@import '../../../css/variables.scss';
+@import "../../../css/variables.scss";
 
 .cell {
   background: $backgroundColor;
   cursor: pointer;
   position: relative;
+  border: none;
 
   &--undefined:hover {
     background: $hoveredColor;
@@ -27,7 +28,7 @@
     }
   }
 
-  &--finished{
+  &--finished {
     background: $secondaryColor;
   }
 
@@ -38,11 +39,11 @@
     &:before,
     &:after {
       position: absolute;
-      content: ' ';
+      content: " ";
       height: 1.5rem;
       width: 2px;
       left: 50%;
-      top:50%;
+      top: 50%;
       margin-top: -0.75rem;
     }
     &:before {

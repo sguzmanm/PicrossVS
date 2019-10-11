@@ -35,23 +35,24 @@ const Cell = props => {
     }
     let className = "cell--undefined";
     switch (props.curCell) {
-    case 1:
-      className = "cell--correct";
-      break;
-    case 2:
-      className = "cell--flagged";
-      break;
-    case -1:
-      className = "cell--incorrect";
-      break;
+      case 1:
+        className = "cell--correct";
+        break;
+      case 2:
+        className = "cell--flagged";
+        break;
+      case -1:
+        className = "cell--incorrect";
+        break;
     }
     return className;
   };
   return (
-    <div
+    <button
+      aria-label="Cell"
       className={`cell ${extraClassName()}`}
       onClick={handleClick}
-      onContextMenu={handleClick}></div>
+      onContextMenu={handleClick}></button>
   );
 };
 

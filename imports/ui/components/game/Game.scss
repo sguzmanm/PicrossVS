@@ -35,12 +35,14 @@
   }
 
   &__close {
-    background-color: transparent;
-    border-color: transparent;
+    background: url("/icons/close.svg");
+    background-size: 3rem;
+    border: none;
     position: absolute;
     top: 0.1rem;
     right: 0.1rem;
-    width: 3.5rem;
+    width: 3rem;
+    height: 3rem;
     cursor: pointer;
   }
 

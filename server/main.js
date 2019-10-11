@@ -2,8 +2,14 @@ import "/imports/api/boards";
 import "/imports/api/games";
 import { Games } from "/imports/api/games";
 import { Users } from "/imports/api/users";
+import { Meteor } from "meteor/meteor";
+import { WebApp } from "meteor/webapp";
 // Game states
 import { ACTIVE, FINISHED } from "../imports/util/gameStates";
+
+Meteor.startup(() => {
+    WebApp.addHtmlAttributeHook(() => ({ lang: "en" }));
+});
 
 var query = Games.find({});
 let init = true;

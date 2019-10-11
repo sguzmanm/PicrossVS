@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
@@ -93,14 +93,14 @@ const Game = props => {
           <p
             className={`game__text game__text--color${
               el.state === FINISHED ? "Final" : index
-            }`}>
+              }`}>
             {index + 1}. {player.username}
           </p>
 
           <p
             className={`game__text game__text--color${
               el.state === FINISHED ? "Final" : index
-            }`}>
+              }`}>
             {score ? score : 0}
           </p>
         </div>
@@ -110,12 +110,35 @@ const Game = props => {
     return null;
   });
 
+
+  const firstButtonRef = useRef(null);
+  const lastButtonRef = useRef(null);
+
+  const trapTab = (e) => {
+    console.log('ajam')
+    if (e.keyCode === 9) {
+      if (e.shiftKey) {
+        if (document.activeElement === firstButtonRef.current) {
+          e.preventDefault()
+          lastButtonRef.current.focus()
+        }
+      }
+      else {
+        if (document.activeElement === lastButtonRef.current) {
+          e.preventDefault()
+          firstButtonRef.current.focus()
+        }
+      }
+    }
+  }
+
   const modal = (
     <div className='modal'>
       <div className='modal__backdrop' onClick={() => setShow(false)}></div>
-      <div className='modal__body'>
+      <div className='modal__body' onKeyDown={trapTab} tabIndex="0">
         <h4 className='modal__title'>Don´t be a dropout</h4>
-        <img
+        <button
+          ref={firstButtonRef}
           className='modal__close'
           alt='Close icon'
           src={"/icons/close.svg"}
@@ -132,6 +155,7 @@ const Game = props => {
             NO
           </button>
           <button
+            ref={lastButtonRef}
             className='game__button game__button--ok'
             onClick={() => {
               setShow(false);
@@ -165,6 +189,16 @@ const Game = props => {
       </div>
     );
   }
+
+
+  useLayoutEffect(() => {
+    console.log('llega', firstButtonRef.current)
+    if (firstButtonRef.current)
+      firstButtonRef.current.focus()
+  }, [(() => {
+    console.log("ref to compare with", firstButtonRef.current);
+    return firstButtonRef.current;
+  })()])
 
   // Render board
   return (

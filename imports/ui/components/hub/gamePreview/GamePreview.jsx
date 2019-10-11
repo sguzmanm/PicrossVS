@@ -16,6 +16,12 @@ const GamePreview = props => {
   const cols = game.numWaitedUsers === 3 ? 3 : 2;
   const playersLength = game.players ? game.players.length : 0;
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      props.onClick()
+    }
+  }
+
   // Squares for the preview
   let squares = [];
   for (let i = 0; i < game.numWaitedUsers; i++) {
@@ -28,8 +34,7 @@ const GamePreview = props => {
           gridRow: `span ${occuppiedRows}`,
           gridColumn: `span ${occuppiedCols}`,
           height: `${3 * occuppiedRows}rem`
-        }}
-        onClick={() => props.onClick()}></div>
+        }}></div>
     );
   }
   return (
@@ -39,16 +44,16 @@ const GamePreview = props => {
         {board && board.rows ? board.rows.length : ""}
       </div>
       {/* Board grid with active players*/}
-      <div
+      <div tabIndex="0"
+        onClick={() => props.onClick()}
+        onKeyPress={handleKeyPress}
         className={`game-preview__grid ${
           props.currentGameId === game._id ? "game-preview__grid--selected" : ""
-        }`}
+          }`}
         style={{
           gridTemplateRows: `repeat( ${rows},1fr)`,
           gridTemplateColumns: `repeat(${cols},1fr)`
-        }}>
-        {squares}
-      </div>
+        }}> {squares}  </div>
     </div>
   );
 };

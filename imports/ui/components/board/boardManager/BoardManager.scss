@@ -9,7 +9,6 @@
   &__button {
     color: white;
     background: $secondaryColor;
-    outline: none;
     border: none;
     padding: 0.3rem 1rem;
     text-transform: uppercase;
@@ -17,5 +16,28 @@
     cursor: pointer;
     display: block;
     font-weight: bold;
+
+    &:focus {
+      outline: 2px solid #9ecaed;
+    }
+  }
+
+  &__hidden {
+    color: white;
+    background: $hoveredColor;
+    border: none;
+    position: fixed;
+    top: -10rem;
+    display: block;
+    padding: 0.3rem 1rem;
+    text-transform: uppercase;
+    margin: 1rem auto;
+    cursor: pointer;
+    font-weight: bold;
+    outline: none;
+    &:focus {
+      position: relative;
+      top: 0;
+    }
   }
 }

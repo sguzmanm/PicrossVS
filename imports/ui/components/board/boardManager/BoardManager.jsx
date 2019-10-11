@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./BoardManager.scss";
 import Board from "../Board.jsx";
 import PropTypes from "prop-types";
@@ -15,6 +15,9 @@ const BoardManager = props => {
   const [numCorrect, setNumCorrect] = useState(0);
   const [boardState, setBoardState] = useState(0);
   const [score, setScore] = useState(0);
+
+  const firstButtonRef = useRef();
+  const lastButtonRef = useRef();
 
   const newBoard = () => {
     // FIxME: Add a current user numCorrect att to avoid this loop
@@ -98,13 +101,28 @@ const BoardManager = props => {
     setScore(0);
   };
 
+  const focusAtEnd = () => {
+    lastButtonRef.current.focus()
+  }
+
+  const focusAtStart = () => {
+    firstButtonRef.current.focus()
+  }
+
   return (
     <div className='boardManager'>
+      <button className='boardManager__hidden' onClick={focusAtEnd} ref={firstButtonRef}>
+        Focus end of board
+      </button>
       <Board
         board={props.board}
         uncoverCell={(i, j, correct) => uncoverCell(i, j, correct)}
         curCells={board}
         state={boardState}></Board>
+
+      <button className='boardManager__hidden' onClick={focusAtStart} ref={lastButtonRef}>
+        Focus beginning of board
+      </button>
 
       <p className='boardManager__score'>Score: {score}</p>
 
