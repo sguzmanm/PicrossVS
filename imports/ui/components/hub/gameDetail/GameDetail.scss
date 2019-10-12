@@ -19,7 +19,7 @@
     background-color: $backgroundColor;
     border: 0.1rem solid $borderColor;
     font-size: 1.5rem;
-    margin: 1rem 2rem;
+    margin-left: 1rem;
     font-weight: bold;
     padding: 0.5rem 1.2rem;
 
@@ -29,16 +29,23 @@
     background: url("/icons/dropdown.svg") right / 1.5rem no-repeat $backgroundColor;
   }
 
-  &__title,
-  &__text {
-    font-size: 1.5rem;
+  &__row {
+    display: flex;
+    align-items: center;
   }
 
   &__title {
-    text-align: center;
+    font-size: 2rem;
+    margin: 0.5rem 0 1rem 0.5rem;
+  }
+
+  &__players {
+    display: flex;
+    justify-content: space-evenly;
   }
 
   &__text {
+    font-size: 1.5rem;
     &--color0 {
       color: $player1Color;
     }
@@ -66,7 +73,7 @@
     border-color: $borderColor;
     align-self: center;
     font-size: 2rem;
-    padding: 1rem 3rem;
+    padding: 0.5rem 2rem;
     cursor: pointer;
     margin-top: 1rem;
     &:hover {

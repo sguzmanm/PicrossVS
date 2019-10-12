@@ -1,6 +1,8 @@
 .hub {
-  display: flex;
-  align-items: start;
-  flex-direction: row;
-  justify-content: space-around;
+  &__row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
 }

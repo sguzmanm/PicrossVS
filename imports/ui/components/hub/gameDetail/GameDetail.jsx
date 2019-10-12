@@ -74,7 +74,9 @@ class GameDetail extends Component {
               {board && board.rows ? board.rows.length : "?"}X
               {board && board.columns ? board.columns.length : "?"}
             </h4>
-            {users}
+            <div className="game-detail__players">
+              {users}
+            </div>
           </div>
           {/*TODO: Define how to have a waiting room for the game*/}
           <button
@@ -105,8 +107,8 @@ class GameDetail extends Component {
 
     return (
       <div className='game-detail'>
-        <div className='game-detail__form'>
-          <h4 className='game-detail__title'>New Game</h4>
+        <h4 className='game-detail__title'>New Game</h4>
+        <div className="game-detail__row">
           <label className='game-detail__text' htmlFor='boardSize'>
             Board size
           </label>
@@ -118,10 +120,9 @@ class GameDetail extends Component {
             onChange={this.updateSize}>
             {sizeOptions}
           </select>
-          <p className='game-detail__text'>Number of players</p>
-          <div className='game-detail__board-list'>{numUserOptions}</div>
         </div>
-
+        <h4 className='game-detail__text'>Number of players</h4>
+        <div className='game-detail__board-list'>{numUserOptions}</div>
         <button
           className='game-detail__button'
           type='submit'

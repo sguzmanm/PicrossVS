@@ -5,3 +5,17 @@ body {
   height: 100%;
   font-family: sans-serif;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Joti One", cursive;
+}
+
+div,
+p {
+  font-family: "Roboto", sans-serif;
+}

@@ -3,10 +3,16 @@
 .ranking {
   padding: 1rem;
   border: 0.1rem solid $borderColor;
+  overflow: auto;
+  height: 50vh;
 
   &__user {
     display: flex;
     justify-content: space-between;
+  }
+
+  &__score {
+    color: $player2Color;
   }
 
   &__title {

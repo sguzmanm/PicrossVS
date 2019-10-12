@@ -50,27 +50,21 @@ const GameList = props => {
 
   return (
     <div className={`game-list ${props.addGame ? "" : "game-list--inactive"}`}>
-      <h2>Available games</h2>
-      <div className='game-list__grid'>
-        <div className='game-list__add'>
-          {/* Label for add button*/}
-          <div className='game-list__add__label'>Create new</div>
-          {/* Board grid*/}
-          <button
-            className={`game-list__add__button ${
-              props.addGame ? "game-list__add__button--selected" : ""
+      <div className="game-list__header">
+        <h2 className="game-list__games">Available games</h2>
+        <button
+          className={`game-list__add__button ${
+            props.addGame ? "game-list__add__button--selected" : ""
             }`}
-            onClick={props.setAddGame}>
-            <img src={"/icons/add.svg"} alt='Add icon' />
-          </button>
-        </div>
+          onClick={props.setAddGame}>
+          <img className="game-list__add__icon" src={"/icons/add.svg"} alt='Add icon' />
+        </button>
+      </div>
+      <div className='game-list__grid'>
 
         {filterActiveGames(props.activeGames)}
       </div>
       <div className='game-list__filter'>
-        <label className='game-list__text' htmlFor='boardSize'>
-          Filter board size
-        </label>
         <select
           id='boardSize'
           name='boardSize'

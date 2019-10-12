@@ -9,19 +9,23 @@
     background-color: transparent;
   }
 
+  &__header {
+    display: flex;
+  }
+
   &__input {
+    cursor: pointer;
     background-color: $backgroundColor;
     border: 0.1rem solid $borderColor;
     font-size: 1.5rem;
-    margin: 3rem 2rem;
+    margin: 2rem 2rem 0 0;
     font-weight: bold;
-    padding: 0.5rem 1.2rem;
+    padding: 0.5rem 1.3rem 0.5rem 0.7rem;
 
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: url("/icons/dropdown.svg") right / 1.5rem no-repeat
-      $backgroundColor;
+    background: url("/icons/dropdown.svg") right / 1.5rem no-repeat $backgroundColor;
   }
 
   &__text {
@@ -29,9 +33,11 @@
   }
 
   &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 6rem);
-    grid-gap: 1rem;
+    display: flex;
+    width: 50vw;
+    padding: 1rem 0;
+    overflow: auto;
+    min-height: 9rem;
   }
 
   &__add {
@@ -44,13 +50,13 @@
     }
 
     &__button {
-      width: 100%;
       border: 0.1rem solid $borderColor;
       cursor: pointer;
       justify-self: center;
       align-self: center;
-      padding: 1rem;
+      padding: 0.5rem;
       background-color: $backgroundColor;
+      margin-left: 1rem;
 
       &:hover {
         filter: brightness(150%);
@@ -61,6 +67,11 @@
         filter: brightness(150%);
         border-width: 0.2rem;
       }
+    }
+
+    &__icon {
+      width: 2rem;
+      height: 2rem;
     }
   }
 }

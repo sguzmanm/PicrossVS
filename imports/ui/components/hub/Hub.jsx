@@ -23,15 +23,17 @@ const Hub = props => {
 
   return (
     <div className='hub'>
-      <GameList
-        addGame={addGame}
-        finishAddGame={() => setAddGame(false)}
-        setAddGame={() => setAddGame(true)}
-        activeGames={props.activeGames}
-        currentGameId={currentGame ? currentGame._id : ""}
-        changeCurrentGameId={setCurrentGameId}
-      />
-      <Ranking users={props.users}></Ranking>
+      <div className="hub__row">
+        <GameList
+          addGame={addGame}
+          finishAddGame={() => setAddGame(false)}
+          setAddGame={() => setAddGame(true)}
+          activeGames={props.activeGames}
+          currentGameId={currentGame ? currentGame._id : ""}
+          changeCurrentGameId={setCurrentGameId}
+        />
+        <Ranking users={props.users} />
+      </div>
       <GameDetail
         history={props.history}
         currentGame={currentGame}
