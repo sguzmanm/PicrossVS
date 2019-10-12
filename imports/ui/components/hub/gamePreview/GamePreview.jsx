@@ -62,6 +62,9 @@ export default GamePreview;
 
 GamePreview.propTypes = {
   game: PropTypes.object,
-  currentGameId: PropTypes.string,
+  currentGameId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
   onClick: PropTypes.func
 };

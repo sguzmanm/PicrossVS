@@ -6,6 +6,7 @@ import "./Game.scss";
 
 import Loading from "./loading/Loading.jsx";
 import Timer from "./timer/Timer.jsx";
+import Modal from './modal/Modal.jsx'
 import BoardManager from "../board/boardManager/BoardManager.jsx";
 
 import { Redirect } from "react-router-dom";
@@ -111,62 +112,6 @@ const Game = props => {
   });
 
 
-  const firstButtonRef = useRef(null);
-  const lastButtonRef = useRef(null);
-
-  const trapTab = (e) => {
-    console.log('ajam')
-    if (e.keyCode === 9) {
-      if (e.shiftKey) {
-        if (document.activeElement === firstButtonRef.current) {
-          e.preventDefault()
-          lastButtonRef.current.focus()
-        }
-      }
-      else {
-        if (document.activeElement === lastButtonRef.current) {
-          e.preventDefault()
-          firstButtonRef.current.focus()
-        }
-      }
-    }
-  }
-
-  const modal = (
-    <div className='modal'>
-      <div className='modal__backdrop' onClick={() => setShow(false)}></div>
-      <div className='modal__body' onKeyDown={trapTab} tabIndex="0">
-        <h4 className='modal__title'>Don´t be a dropout</h4>
-        <button
-          ref={firstButtonRef}
-          className='modal__close'
-          alt='Close icon'
-          src={"/icons/close.svg"}
-          onClick={() => setShow(false)}
-        />
-        <div className='modal__content'>
-          Are you sure you wanna leave the game? You´ll be punished by losing
-          2000 points :(
-        </div>
-        <div className='modal__footer'>
-          <button
-            className='game__button game__button--cancel'
-            onClick={() => setShow(false)}>
-            NO
-          </button>
-          <button
-            ref={lastButtonRef}
-            className='game__button game__button--ok'
-            onClick={() => {
-              setShow(false);
-              finishGame(playerIndex, true);
-            }}>
-            YES
-          </button>
-        </div>
-      </div>
-    </div>
-  );
 
   let button = (
     <div className='row'>
@@ -190,22 +135,20 @@ const Game = props => {
     );
   }
 
+  const boardRef = useRef(null);
 
-  useLayoutEffect(() => {
-    console.log('llega', firstButtonRef.current)
-    if (firstButtonRef.current)
-      firstButtonRef.current.focus()
-  }, [(() => {
-    console.log("ref to compare with", firstButtonRef.current);
-    return firstButtonRef.current;
-  })()])
+  const restoreFocus = () => {
+    if (boardRef.current) {
+      boardRef.current.focus()
+    }
+  }
 
   // Render board
   return (
     <div className='game'>
-      {show ? modal : null}
+      {show ? <Modal closeModal={() => { setShow(false); restoreFocus() }} finishGame={() => finishGame(playerIndex, true)}></Modal> : null}
 
-      <div className='row'>
+      <div className='row' ref={boardRef}>
         {/* Show board only when they are playing*/}
         {isFinished ? null : (
           <BoardManager
