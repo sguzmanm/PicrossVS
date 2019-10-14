@@ -23,7 +23,7 @@ const Hub = props => {
 
   return (
     <div className='hub'>
-      <div className="hub__row">
+      <div className='hub__row'>
         <GameList
           addGame={addGame}
           finishAddGame={() => setAddGame(false)}

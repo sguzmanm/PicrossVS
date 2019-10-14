@@ -6,7 +6,7 @@ import "./Game.scss";
 
 import Loading from "./loading/Loading.jsx";
 import Timer from "./timer/Timer.jsx";
-import Modal from './modal/Modal.jsx'
+import Modal from "./modal/Modal.jsx";
 import BoardManager from "../board/boardManager/BoardManager.jsx";
 
 import { Redirect } from "react-router-dom";
@@ -96,14 +96,14 @@ const Game = props => {
           <p
             className={`game__text game__text--color${
               el.state === FINISHED ? "Final" : index
-              }`}>
+            }`}>
             {index + 1}. {player.username}
           </p>
 
           <p
             className={`game__text game__text--color${
               el.state === FINISHED ? "Final" : index
-              }`}>
+            }`}>
             {score ? score : 0}
           </p>
         </div>
@@ -112,8 +112,6 @@ const Game = props => {
 
     return null;
   });
-
-
 
   let button = (
     <div className='row'>
@@ -138,14 +136,21 @@ const Game = props => {
   }
   const restoreFocus = () => {
     if (boardRef.current) {
-      boardRef.current.focus()
+      boardRef.current.focus();
     }
-  }
+  };
 
   // Render board
   return (
     <div className='game'>
-      {show ? <Modal closeModal={() => { setShow(false); restoreFocus() }} finishGame={() => finishGame(playerIndex, true)}></Modal> : null}
+      {show ? (
+        <Modal
+          closeModal={() => {
+            setShow(false);
+            restoreFocus();
+          }}
+          finishGame={() => finishGame(playerIndex, true)}></Modal>
+      ) : null}
 
       <div className='row' ref={boardRef}>
         {/* Show board only when they are playing*/}

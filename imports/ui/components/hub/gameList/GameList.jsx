@@ -50,18 +50,21 @@ const GameList = props => {
 
   return (
     <div className={`game-list ${props.addGame ? "" : "game-list--inactive"}`}>
-      <div className="game-list__header">
-        <h2 className="game-list__games">Available games</h2>
+      <div className='game-list__header'>
+        <h2 className='game-list__games'>Available games</h2>
         <button
           className={`game-list__add__button ${
             props.addGame ? "game-list__add__button--selected" : ""
-            }`}
+          }`}
           onClick={props.setAddGame}>
-          <img className="game-list__add__icon" src={"/icons/add.svg"} alt='Add icon' />
+          <img
+            className='game-list__add__icon'
+            src={"/icons/add.svg"}
+            alt='Add icon'
+          />
         </button>
       </div>
       <div className='game-list__grid'>
-
         {filterActiveGames(props.activeGames)}
       </div>
       <div className='game-list__filter'>

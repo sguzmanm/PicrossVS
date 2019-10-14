@@ -16,11 +16,11 @@ const GamePreview = props => {
   const cols = game.numWaitedUsers === 3 ? 3 : 2;
   const playersLength = game.players ? game.players.length : 0;
 
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      props.onClick()
+  const handleKeyPress = event => {
+    if (event.key === "Enter") {
+      props.onClick();
     }
-  }
+  };
 
   // Squares for the preview
   let squares = [];
@@ -44,16 +44,20 @@ const GamePreview = props => {
         {board && board.rows ? board.rows.length : ""}
       </div>
       {/* Board grid with active players*/}
-      <div tabIndex="0"
+      <div
+        tabIndex='0'
         onClick={() => props.onClick()}
         onKeyPress={handleKeyPress}
         className={`game-preview__grid ${
           props.currentGameId === game._id ? "game-preview__grid--selected" : ""
-          }`}
+        }`}
         style={{
           gridTemplateRows: `repeat( ${rows},1fr)`,
           gridTemplateColumns: `repeat(${cols},1fr)`
-        }}> {squares}  </div>
+        }}>
+        {" "}
+        {squares}{" "}
+      </div>
     </div>
   );
 };
@@ -62,9 +66,6 @@ export default GamePreview;
 
 GamePreview.propTypes = {
   game: PropTypes.object,
-  currentGameId: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]),
+  currentGameId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onClick: PropTypes.func
 };

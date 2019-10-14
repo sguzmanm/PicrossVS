@@ -74,9 +74,7 @@ class GameDetail extends Component {
               {board && board.rows ? board.rows.length : "?"}X
               {board && board.columns ? board.columns.length : "?"}
             </h4>
-            <div className="game-detail__players">
-              {users}
-            </div>
+            <div className='game-detail__players'>{users}</div>
           </div>
           {/*TODO: Define how to have a waiting room for the game*/}
           <button
@@ -108,7 +106,7 @@ class GameDetail extends Component {
     return (
       <div className='game-detail'>
         <h4 className='game-detail__title'>New Game</h4>
-        <div className="game-detail__row">
+        <div className='game-detail__row'>
           <label className='game-detail__text' htmlFor='boardSize'>
             Board size
           </label>

@@ -3,14 +3,17 @@ import "./CellGrid.scss";
 import PropTypes from "prop-types";
 import Cell from "../cell/Cell.jsx";
 const CellGrid = props => {
-  let size = 3.5 - 0.1 * props.board.columns.length
+  let size = 3.5 - 0.1 * props.board.columns.length;
   let boardStyle = {
     gridTemplateColumns: `repeat(${props.board.columns.length},${size}rem)`,
     gridTemplateRows: `repeat(${props.board.rows.length},${size}rem)`
   };
 
   let containerStyle = {
-    width: `calc(${props.board.columns.length * size}rem + ${(props.board.columns.length - 1) * 2}px)`,
+    width: `calc(${props.board.columns.length * size}rem + ${(props.board
+      .columns.length -
+      1) *
+      2}px)`,
     height: `calc(${props.board.columns.length * size}rem + ${(props.board.rows
       .length -
       1) *

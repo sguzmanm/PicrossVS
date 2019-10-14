@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 const BoardManager = props => {
   // Vars setup
   const originalBoard = [
-    props.board.curCells.map(function (arr) {
+    props.board.curCells.map(function(arr) {
       return arr.slice();
     })
   ];
@@ -43,6 +43,7 @@ const BoardManager = props => {
 
     setNumCorrect(numCorrect);
     setBoardState(complete ? 1 : 0);
+
     if (props.curScore) {
       setScore(props.curScore);
     }
@@ -102,16 +103,19 @@ const BoardManager = props => {
   };
 
   const focusAtEnd = () => {
-    lastButtonRef.current.focus()
-  }
+    lastButtonRef.current.focus();
+  };
 
   const focusAtStart = () => {
-    firstButtonRef.current.focus()
-  }
+    firstButtonRef.current.focus();
+  };
 
   return (
     <div className='boardManager'>
-      <button className='boardManager__hidden' onClick={focusAtEnd} ref={firstButtonRef}>
+      <button
+        className='boardManager__hidden'
+        onClick={focusAtEnd}
+        ref={firstButtonRef}>
         Focus end of board
       </button>
       <Board
@@ -120,7 +124,10 @@ const BoardManager = props => {
         curCells={board}
         state={boardState}></Board>
 
-      <button className='boardManager__hidden' onClick={focusAtStart} ref={lastButtonRef}>
+      <button
+        className='boardManager__hidden'
+        onClick={focusAtStart}
+        ref={lastButtonRef}>
         Focus beginning of board
       </button>
 
