@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import PropTypes from "prop-types";
@@ -17,6 +17,8 @@ import { Games } from "../../../api/games";
 import { FINISHED, CANCELLED } from "../../../util/gameStates";
 
 const Game = props => {
+  const boardRef = useRef(null);
+
   const [show, setShow] = useState(false);
   const updateGame = (playerIndex, board, score) => {
     let currentGame = props.currentGame;
@@ -134,9 +136,6 @@ const Game = props => {
       </div>
     );
   }
-
-  const boardRef = useRef(null);
-
   const restoreFocus = () => {
     if (boardRef.current) {
       boardRef.current.focus()
