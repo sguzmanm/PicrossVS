@@ -13,6 +13,7 @@ const App = props => {
     <div className='app'>
       <Nav />
       <Router currentUser={props.currentUser} userId={props.userId}></Router>
+      <!-- Ignorar. Comentario en el commit -->
     </div>
   );
 };
