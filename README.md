@@ -68,7 +68,7 @@ Run project
 ```
 npm run dev
 ```
-
+'
 ### Steps to deploy production version into Heroku
 
 It is assumed that the Heroku CLI is setup in your computer for this and connected to a project. If you are not sure or do not have this, please visit https://devcenter.heroku.com/articles/getting-started-with-nodejs.
